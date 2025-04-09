@@ -43,19 +43,51 @@ end
 
 local function IsKnown(itemLink)
     if LCK == nil then LCK = LibCharacterKnowledge end -- workaround 27/11/2022
-    local character = _GetCharacter(PA.Integration.SavedVars.CharacterKnowledge.characterName)
-	if character == "none" then
-	   return nil
-	end
-    local knowledge = LCK.GetItemKnowledgeForCharacter(itemLink, nil, character.id)
-    if knowledge == LCK.KNOWLEDGE_KNOWN then
-        return true
-    elseif knowledge == LCK.KNOWLEDGE_UNKNOWN then
-        return false
-    else
-        PA.debugln("knowledge of " .. itemLink .. " to " .. character.name .. " is " .. knowledge)
+
+    local characters = LCK.GetItemKnowledgeList(itemLink)
+    local inList = false
+    local known = false
+
+    for i, character in ipairs(characters) do
+
+        local knowledge = LCK.GetItemKnowledgeForCharacter(itemLink, nil, character.id)
+
+        -- Fail fast if it's us
+        if character.name == GetUnitName("player") then
+            inList = true
+            if knowledge == LCK.KNOWLEDGE_KNOWN then known = true end
+            break
+        end
+
+        if knowledge == LCK.KNOWLEDGE_UNKNOWN then
+            known = true
+            break
+        end
     end
-    return nil
+
+    if inList == false then return true end
+    return known
+
+end
+
+local function IsAllKnown(itemLink)
+    if LCK == nil then LCK = LibCharacterKnowledge end -- workaround 27/11/2022
+
+    local characters = LCK.GetItemKnowledgeList(itemLink)
+    local known = true
+
+    for i, character in ipairs(characters) do
+
+        local knowledge = LCK.GetItemKnowledgeForCharacter(itemLink, nil, character.id)
+
+        if knowledge == LCK.KNOWLEDGE_UNKNOWN then
+            known = false
+            break
+        end
+    end
+
+    return known
+
 end
 
 local function RegisterForInitializationCallback(executableFunction)
@@ -73,5 +105,6 @@ PA.Libs.CharacterKnowledge = {
     IsInstalled = IsInstalled,
     IsEnabled = IsEnabled,
     IsKnown = IsKnown,
+    IsAllKnown = IsAllKnown,
     RegisterForInitializationCallback = RegisterForInitializationCallback
 }

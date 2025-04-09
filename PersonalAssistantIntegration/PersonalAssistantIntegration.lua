@@ -61,8 +61,6 @@ local function initAddon(_, addOnName)
     else
         -- a valid profile is selected and thus SavedVars for that profile can be pre-loaded
         PAEM.RefreshSavedVarReference.PAIntegration()
-        -- then also all the events can be initialised
-        PAEM.RefreshEventRegistration.PAIntegration()
     end
 
     -- create the options with LAM-2

@@ -22,7 +22,6 @@ end
 
 local function setValueAndRefreshEvents(value, ...)
     setValue(value, ...)
-    PAEM.RefreshEventRegistration.PAIntegration()
 end
 
 local function isDisabled(...)

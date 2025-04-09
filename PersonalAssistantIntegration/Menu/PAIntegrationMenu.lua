@@ -87,12 +87,6 @@ local function _createPAIntegrationMenu()
             default = PAIMenuDefaults.CharacterKnowledge.enabled
         })
 
-        PAIntegrationOptionsTable:insert({
-            type = "description",
-            text = GetString(SI_PA_MENU_INTEGRATION_CK_INITIALIZING),
-            disabled = PAIMenuFunctions.isCKInitializingDisabled
-        })
-        characterNameDropdownIndex = table.maxn(PAIntegrationOptionsTable)
     end
 
     -- -----------------------------------------------------------------------------------------------------------------
@@ -527,25 +521,7 @@ local function createOptions()
     PA.LAM2:RegisterOptionControls("PersonalAssistantIntegrationAddonOptions", PAIntegrationOptionsTable)
 end
 
-local function RebuildPAICKCharacterNameDropdown()
-    local characterNames = PA.Libs.CharacterKnowledge.GetCharacterNames()
-    PAIMenuDefaults.CharacterKnowledge.characterName = characterNames[1]
-    if not PAIMenuFunctions.getCKICharacterName() then
-        PAIMenuFunctions.setCKICharacterName(PAIMenuDefaults.CharacterKnowledge.characterName)
-    end
-    PAIntegrationOptionsTable[characterNameDropdownIndex] = {
-        type = "dropdown",
-        name = GetString(SI_PA_MENU_INTEGRATION_CK_CHARACTER),
-        choices = characterNames,
-        getFunc = PAIMenuFunctions.getCKICharacterName,
-        setFunc = PAIMenuFunctions.setCKICharacterName,
-        disabled = PAIMenuFunctions.isCKICharacterNameDisabled,
-        default = PAIMenuDefaults.CharacterKnowledge.characterName
-    }
-end
-
 -- =====================================================================================================================
 -- Export
 PA.Integration = PA.Integration or {}
 PA.Integration.createOptions = createOptions
-PA.Integration.RebuildPAICKCharacterNameDropdown = RebuildPAICKCharacterNameDropdown

@@ -216,17 +216,6 @@ local function RefreshPABankingEventRegistration()
     end
 end
 
-local function RefreshPAIntegrationEventRegistration()
-    -- Check if the Addon 'PAIntegration' is even enabled
-    local PAI = PA.Integration
-    if PAI and PAPM.PAIntegration and PAPM.PAIntegration.hasActiveProfile() then
-        local PALCK = PA.Libs.CharacterKnowledge
-        if PALCK.IsInstalled() then
-            PALCK.RegisterForInitializationCallback(PAI.RebuildPAICKCharacterNameDropdown)
-        end
-    end
-end
-
 local function RefreshPAJunkEventRegistration()
     -- Check if the Addon 'PAJunk' is even enabled
     local PAJ = PA.Junk
@@ -568,7 +557,6 @@ PA.EventManager = {
 
     RefreshEventRegistration = {
         PABanking = RefreshPABankingEventRegistration,
-        PAIntegration = RefreshPAIntegrationEventRegistration,
         PAJunk = RefreshPAJunkEventRegistration,
         PALoot = RefreshPALootEventRegistration,
         PAMail = RefreshPAMailEventRegistration,

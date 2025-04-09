@@ -165,6 +165,7 @@ local PALStrings = {
     SI_PA_MARK_WITH = "Mark with . . .",
     SI_PA_ITEM_KNOWN = "Already known",
     SI_PA_ITEM_UNKNOWN = "Unknown",
+    SI_PA_ITEM_OTHERUNKNOWN = "Unknown by other character",
     SI_PA_ITEM_UNCOLLECTED = "Uncollected",
     SI_PA_ITEM_COMPANION_ITEM = "Companion Item"
 }

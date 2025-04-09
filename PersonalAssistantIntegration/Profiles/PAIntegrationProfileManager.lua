@@ -171,8 +171,6 @@ local function setPAIntegrationActiveProfile(profileNo)
         PA.Integration.selectedDeleteProfile = nil
         -- refresh all SavedVar references that are profile-specific
         PAEM.RefreshSavedVarReference.PAIntegration()
-        -- and also refresh all event registrations
-        PAEM.RefreshEventRegistration.PAIntegration()
     end
 end
 
@@ -285,9 +283,6 @@ local function copyPAIntegrationSelectedProfile()
 
     -- settings have been updated and thus the SavedVars for that profile need to be refresh
     PAEM.RefreshSavedVarReference.PAIntegration()
-
-    -- then also all the events need to be re-initialized
-    PAEM.RefreshEventRegistration.PAIntegration()
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
