@@ -43,49 +43,42 @@ end
 
 local function IsKnown(itemLink)
     if LCK == nil then LCK = LibCharacterKnowledge end -- workaround 27/11/2022
-
-     local characters = LCK.GetItemKnowledgeList(itemLink)
-     local inList = false
-     local known = false
-
-     for i, character in ipairs(characters) do
-
-         local knowledge = LCK.GetItemKnowledgeForCharacter(itemLink, nil, character.id)
-
-         -- Fail fast if it's us
-         if character.name == GetUnitName("player") then
-             inList = true
-             if knowledge == LCK.KNOWLEDGE_KNOWN then known = true end
-             break
-         end
-
-         if knowledge == LCK.KNOWLEDGE_UNKNOWN then
-             known = true
-             break
-         end
-     end
-
-     if inList == false then return true end
-     return known
-
-end
-
- local function IsAllKnown(itemLink)
-     if LCK == nil then LCK = LibCharacterKnowledge end -- workaround 27/11/2022
-
-     local characters = LCK.GetItemKnowledgeList(itemLink)
-     local known = true
-
-     for i, character in ipairs(characters) do
-
-         local knowledge = LCK.GetItemKnowledgeForCharacter(itemLink, nil, character.id)
-
-         if knowledge == LCK.KNOWLEDGE_UNKNOWN then
-             known = false
-             break
-         end
+    local characters = LCK.GetItemKnowledgeList(itemLink)
+    local known = true
+    for i, character in ipairs(characters) do
+        local knowledge = LCK.GetItemKnowledgeForCharacter(itemLink, nil, character.id)
+        if knowledge == LCK.KNOWLEDGE_UNKNOWN then
+            known = false
+            break
+        end
     end
     return known
+end
+
+local function DoesCharacterNeed(itemLink)
+    if LCK == nil then LCK = LibCharacterKnowledge end -- workaround 27/11/2022
+    local characters = LCK.GetItemKnowledgeList(itemLink)
+    local inList = false
+    local needed = false
+    for i, character in ipairs(characters) do
+        local knowledge = LCK.GetItemKnowledgeForCharacter(itemLink, nil, character.id)
+        -- Fail fast if it's us
+        if character.name == GetUnitName("player") then
+            if knowledge == LCK.KNOWLEDGE_UNKNOWN and needed == false then
+                inList = true
+                needed = true
+                break
+            end
+        end
+        if knowledge == LCK.KNOWLEDGE_UNKNOWN then
+            needed = true
+        end
+    end
+    if inList == true and needed == true then
+        return true
+    else
+        return false
+    end
 end
 
 local function RegisterForInitializationCallback(executableFunction)
@@ -103,6 +96,6 @@ PA.Libs.CharacterKnowledge = {
     IsInstalled = IsInstalled,
     IsEnabled = IsEnabled,
     IsKnown = IsKnown,
-	IsAllKnown = IsAllKnown,
+	DoesCharacterNeed = DoesCharacterNeed,
     RegisterForInitializationCallback = RegisterForInitializationCallback
 }

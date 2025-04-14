@@ -13,7 +13,11 @@ local function IsBookKnown(itemLink)
     if PALCK.IsInstalled() and PALCK.IsEnabled() then
         return PALCK.IsKnown(itemLink)
     else
-        return IsItemLinkBookKnown(itemLink)
+        if IsItemLinkBook(itemLink) and IsItemLinkBookKnown(itemLink) then
+            return true
+        else
+            return false
+        end
     end
 end
 
@@ -175,19 +179,48 @@ end
 ---@param excludeJunk boolean whether junk items should be excluded
 ---@param skipItemsWithCustomRule boolean whether items for which a custom rule exists should be skipped
 ---@param skipFcoisLocked boolean whether items that are 'Locked' by FCOIS should be skipped
+---@param deposit boolean whether this is a deposit or withdraw comparison
 ---@return fun(itemData: table) a comparator function that only returns item that match the complex list and pass the junk-test
-local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJunk, skipItemsWithCustomRule, skipFcoisLocked)
+local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJunk, skipItemsWithCustomRule, skipFcoisLocked, deposit)
     local function _isItemOfItemTypeAndKnowledge(itemType, itemLink, expectedItemType, expectedIsKnown)
         if itemType == expectedItemType then
             if itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
-                local isBook = IsItemLinkBook(itemLink)
-                if isBook then
-                    local isKnown = IsBookKnown(itemLink)
-                    if isKnown == expectedIsKnown then return true end
+                if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                    -- expectedIsKnown responses: (Known == False)  (Unknown == true)
+                    local known = IsBookKnown(itemLink)
+                    if deposit == true then -- Deposit
+                        if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                            return true
+                        end
+                    else -- Withdraw
+                        if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                            return true
+                        end
+                    end
+                else -- Default Behavior
+                    local isBook = IsItemLinkBook(itemLink)
+                    if isBook then
+                        local isKnown = IsBookKnown(itemLink)
+                        if isKnown == expectedIsKnown then return true end
+                    end
                 end
             elseif itemType == ITEMTYPE_RECIPE then
-                local isRecipeKnown = IsRecipeKnown(itemLink)
-                if isRecipeKnown == expectedIsKnown then return true end
+                if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                    -- expectedIsKnown responses: (Known == False)  (Unknown == true)
+                    local known = IsRecipeKnown(itemLink)
+                    if deposit == true then -- Deposit
+                        if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                            return true
+                        end
+                    else -- Withdraw
+                        if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                            return true
+                        end
+                    end
+                else -- Default Behavior
+                    local known = IsRecipeKnown(itemLink)
+                    if known == expectedIsKnown then return true end
+                end
             end
         end
         return false
@@ -678,11 +711,27 @@ local function getItemLinkLearnableStatus(itemLink)
 
     if isItemLinkForCompanion(itemLink) then return nil end
     if itemType == ITEMTYPE_RECIPE then
-        if IsRecipeKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
-        return PAC.LEARNABLE.UNKNOWN
+        if IsRecipeKnown(itemLink) then
+            return PAC.LEARNABLE.KNOWN
+        elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+            if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                return PAC.LEARNABLE.UNKNOWN
+            else
+                return PAC.LEARNABLE.OTHERUNKNOWN
+            end
+        else
+            return PAC.LEARNABLE.UNKNOWN
+        end
     elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
-        if IsItemLinkBook(itemLink) then
-            if IsBookKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
+        if IsBookKnown(itemLink) then
+            return PAC.LEARNABLE.KNOWN
+        elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+            if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                return PAC.LEARNABLE.UNKNOWN
+            else
+                return PAC.LEARNABLE.OTHERUNKNOWN
+            end
+        else
             return PAC.LEARNABLE.UNKNOWN
         end
     elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then

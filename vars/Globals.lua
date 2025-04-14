@@ -996,6 +996,7 @@ PersonalAssistant.Constants = {
     },
 
     LEARNABLE = {
+        OTHERUNKNOWN = 2,
         KNOWN = 1,
         UNKNOWN = 0,
     }

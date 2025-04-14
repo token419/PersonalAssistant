@@ -260,17 +260,10 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
     local learnableStatus = PAHF.getItemLinkLearnableStatus(itemLink)
     if learnableStatus == PAC.LEARNABLE.KNOWN then
         if (itemType == ITEMTYPE_RECIPE and PALootItemIconsSV.Recipes.showKnownIcon) or
-                (itemType == ITEMTYPE_RACIAL_STYLE_MOTIF and PALootItemIconsSV.Motifs.showKnownIcon) or
-				(( itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY_SCRIPT or itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY) and PALootItemIconsSV.Scribing.showKnownIcon) then
-             if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-                 if PA.Libs.CharacterKnowledge.IsAllKnown(itemLink) then
-                     _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
-                 else
-                     _setOtherUnknownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_OTHERUNKNOWN))
-                 end
-             else
-                 _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
-             end
+                (itemType == ITEMTYPE_RACIAL_STYLE_MOTIF and PALootItemIconsSV.Motifs.showKnownIcon) then
+                _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
+		elseif (( itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY_SCRIPT or itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY) and PALootItemIconsSV.Scribing.showKnownIcon) then
+                _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
         elseif ((itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY) and PALootItemIconsSV.ApparelWeapons.showKnownIcon) then
             local itemTraitType = GetItemLinkTraitType(itemLink)
             local traitName = GetString("SI_ITEMTRAITTYPE", itemTraitType)
@@ -294,6 +287,11 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
             local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
             local collectibleName = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetCollectibleName(containerCollectibleId))
             _setUnknownItemIcon(itemIconControl, iconSize, table.concat({GetString(SI_PA_ITEM_UNKNOWN), ": ", PAC.COLORS.WHITE, collectibleName}))
+        end
+    elseif learnableStatus == PAC.LEARNABLE.OTHERUNKNOWN then
+        if (itemType == ITEMTYPE_RECIPE and PALootItemIconsSV.Recipes.showUnknownIcon) or
+                (itemType == ITEMTYPE_RACIAL_STYLE_MOTIF and PALootItemIconsSV.Motifs.showUnknownIcon) then
+                _setOtherUnknownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_OTHERUNKNOWN))
         end
     end
 end
