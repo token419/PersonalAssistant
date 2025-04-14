@@ -16,33 +16,33 @@ local PALStrings = {
     SI_PA_MENU_LOOT_RECIPES_HEADER = table.concat({"When Looting ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE).."/"..GetString(SI_PROVISIONERSPECIALINGREDIENTTYPE_TRADINGHOUSERECIPECATEGORY3), 2)}),
     SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG = table.concat({"> a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE).."/"..GetString(SI_PROVISIONERSPECIALINGREDIENTTYPE_TRADINGHOUSERECIPECATEGORY3), " is unknown"}),
     SI_PA_MENU_LOOT_RECIPES_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE).."/"..GetString(SI_PROVISIONERSPECIALINGREDIENTTYPE_TRADINGHOUSERECIPECATEGORY3), " is looted that is not yet known by this character, a message is displayed in the chat"}),
-
+    
 	SI_PA_MENU_LOOT_AUTO_LEARN_RECIPES = table.concat({"Auto-learn ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE)}),
-    SI_PA_MENU_LOOT_AUTO_LEARN_RECIPES_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is looted that is not yet known by this character, auto-learn it"}),
-
+    SI_PA_MENU_LOOT_AUTO_LEARN_RECIPES_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is looted that is not yet known by this character, auto-learn it"}),	
+	
 	SI_PA_MENU_LOOT_AUTO_LEARN_FURNISHING_PLAN = table.concat({"Auto-learn ", GetString(SI_PROVISIONERSPECIALINGREDIENTTYPE_TRADINGHOUSERECIPECATEGORY3)}),
     SI_PA_MENU_LOOT_AUTO_LEARN_FURNISHING_PLAN_T = table.concat({"Whenever a ", GetString(SI_PROVISIONERSPECIALINGREDIENTTYPE_TRADINGHOUSERECIPECATEGORY3), " is looted that is not yet known by this character, auto-learn it"}),
-
+	
     -- Loot Scribing Scripts & Grimoires
     SI_PA_MENU_LOOT_SCRIBING_SCRIPTS_HEADER = table.concat({"When Looting ", zo_strformat(GetString("SI_ITEMTYPE", ITEMTYPE_CRAFTED_ABILITY_SCRIPT),2),"/",zo_strformat(GetString("SI_ITEMTYPE", ITEMTYPE_CRAFTED_ABILITY, 2))}),
     SI_PA_MENU_LOOT_SCRIBING_SCRIPTS_UNKNOWN_MSG = table.concat({"> a ", GetString("SI_ITEMTYPE", ITEMTYPE_CRAFTED_ABILITY_SCRIPT).."/"..GetString("SI_ITEMTYPE", ITEMTYPE_CRAFTED_ABILITY), " is unknown"}),
     SI_PA_MENU_LOOT_SCRIBING_SCRIPTS_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_CRAFTED_ABILITY_SCRIPT).."/"..GetString("SI_ITEMTYPE", ITEMTYPE_CRAFTED_ABILITY), " is looted that is not yet known by this character, a message is displayed in the chat"}),
-
+    
 	SI_PA_MENU_LOOT_AUTO_LEARN_SCRIBING_SCRIPTS = table.concat({"Auto-learn ", GetString("SI_ITEMTYPE", ITEMTYPE_CRAFTED_ABILITY_SCRIPT)}),
     SI_PA_MENU_LOOT_AUTO_LEARN_SCRIBING_SCRIPTS_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_CRAFTED_ABILITY_SCRIPT), " is looted that is not yet known by this character, auto-learn it"}),
-
+	
 	SI_PA_MENU_LOOT_AUTO_LEARN_SCRIBING_GRIMOIRES = table.concat({"Auto-learn ", GetString("SI_ITEMTYPE", ITEMTYPE_CRAFTED_ABILITY)}),
     SI_PA_MENU_LOOT_AUTO_LEARN_SCRIBING_GRIMOIRES_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_CRAFTED_ABILITY), " is looted that is not yet known by this character, auto-learn it"}),
 
     -- Loot Motifs & Style Pages
     SI_PA_MENU_LOOT_STYLES_HEADER = "When Looting Styles",
-
+	
     SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG = table.concat({"> a ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is unknown"}),
     SI_PA_MENU_LOOT_MOTIFS_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is looted that is not yet known by this character, a message is displayed in the chat"}),
-
+ 
     SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG = table.concat({"> a ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " is unknown"}),
-    SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " is looted that is not yet known by this character, a message is displayed in the chat"}),
-
+    SI_PA_MENU_LOOT_STYLEPAGES_UNKNOWN_MSG_T = table.concat({"Whenever a ", GetString("SI_SPECIALIZEDITEMTYPE", SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE), " is looted that is not yet known by this character, a message is displayed in the chat"}), 
+	
 	SI_PA_MENU_LOOT_AUTO_LEARN_MOTIFS = table.concat({"Auto-learn ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF)}),
 	SI_PA_MENU_LOOT_AUTO_LEARN_MOTIFS_T = table.concat({"Whenever a ", GetString("SI_ITEMTYPE", ITEMTYPE_RACIAL_STYLE_MOTIF), " is looted that is not yet known by this character, auto-learn it"}),
 
@@ -68,9 +68,9 @@ local PALStrings = {
     SI_PA_MENU_LOOT_AUTO_FILLET_HEADER = table.concat({"When Looting ", GetString("SI_ITEMTYPE", ITEMTYPE_FISH)}),
     SI_PA_MENU_LOOT_AUTO_FILLET = "Auto fillet common fish",
     SI_PA_MENU_LOOT_AUTO_FILLET_T = "Auto fillet common fish to obtain Fish or Perfect Roe",
-
+	
 	-- Auto Combine collectibles
-    SI_PA_MENU_LOOT_AUTO_COMBINE_HEADER = table.concat({"When Looting ", GetString(SI_SPECIALIZEDITEMTYPE109)}),
+    SI_PA_MENU_LOOT_AUTO_COMBINE_HEADER = table.concat({"When Looting ", GetString(SI_SPECIALIZEDITEMTYPE109)}), 
     SI_PA_MENU_LOOT_AUTO_COMBINE = "Auto combine locked collectible fragments",
     SI_PA_MENU_LOOT_AUTO_COMBINE_T = "Auto combine fragments to unlock the collectible",
 
@@ -85,7 +85,7 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_HEADER = "Item Icons",
     SI_PA_MENU_LOOT_ICONS_ENABLE = "Enable Item Icons",
     SI_PA_MENU_LOOT_ICONS_ANY_SHOW_TOOLTIP = "Display icon tooltip",
-
+	
 	-- mark known as junk --
 	SI_PA_MENU_LOOT_AUTO_MARK_AS_JUNK_KNOWN = "Auto-mark known ones as junk",
 	SI_PA_MENU_LOOT_AUTO_MARK_AS_JUNK_KNOWN_T = "Auto-mark known ones as junk so they can be auto-sold to a merchant",
@@ -94,7 +94,7 @@ local PALStrings = {
     SI_PA_MENU_LOOT_ICONS_RECIPES_HEADER = table.concat({"Marking ", zo_strformat(GetString("SI_PA_ITEMTYPE", ITEMTYPE_RECIPE), 2)}),
     SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_KNOWN = table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "when a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is already known"}),
     SI_PA_MENU_LOOT_ICONS_RECIPE_SHOW_UNKNOWN = table.concat({">", PAC.ICONS.OTHERS.UNKNOWN.NORMAL, "when a ", GetString("SI_ITEMTYPE", ITEMTYPE_RECIPE), " is still unknown"}),
-
+	
     -- Mark scribing --
     SI_PA_MENU_LOOT_ICONS_SCRIBING_HEADER = table.concat({"Marking ", GetString(SI_NOTIFICATIONTYPE20), " ", GetString(SI_ITEMTYPE73), "/", GetString(SI_ITEMTYPE72)}),
     SI_PA_MENU_LOOT_ICONS_SCRIBING_SHOW_KNOWN = table.concat({">", PAC.ICONS.OTHERS.KNOWN.NORMAL, "when a ", GetString(SI_NOTIFICATIONTYPE20), " ", GetString(SI_ITEMTYPE73), "/", GetString(SI_ITEMTYPE72), " is already known"}),
@@ -144,13 +144,13 @@ local PALStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- PALoot --
     SI_PA_CHAT_LOOT_RECIPE_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),
-    SI_PA_CHAT_LOOT_MOTIF_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),
-	SI_PA_CHAT_LOOT_SCRIBING_SCRIPT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),
+    SI_PA_CHAT_LOOT_MOTIF_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),	
+	SI_PA_CHAT_LOOT_SCRIBING_SCRIPT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),	
     SI_PA_CHAT_LOOT_TRAIT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s has [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] that can be researched!"}),
     SI_PA_CHAT_LOOT_SET_UNCOLLECTED = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.SMALL, "%s is missing in set collection!"}),
     SI_PA_CHAT_LOOT_COMPANION_ITEM = table.concat({PAC.ICONS.OTHERS.COMPANION.SMALL, "%s new companion item with ", PAC.COLOR.WHITE:Colorize("%s"), " trait!"}),
 	SI_PA_CHAT_LOOT_AUTO_FILLET = "%s is being auto filleted.",
-
+	
 
     SI_PA_PATTERN_INVENTORY_COUNT = table.concat({"%sYou have <<1[", PAC.COLORS.WHITE,"no/only ", PAC.COLORS.WHITE, "%d/only ", PAC.COLORS.WHITE, "%d]>> %s<<1[inventory space/inventory space/inventory spaces]>> left!"}),
     SI_PA_PATTERN_REPAIRKIT_COUNT = table.concat({"%sYou have <<1[", PAC.COLORS.WHITE,"no/only ", PAC.COLORS.WHITE, "%d/only ", PAC.COLORS.WHITE, "%d]>> %s<<1[Repair Kits/Repair Kit/Repair Kits]>> left!"}),
@@ -165,7 +165,7 @@ local PALStrings = {
     SI_PA_MARK_WITH = "Mark with . . .",
     SI_PA_ITEM_KNOWN = "Already known",
     SI_PA_ITEM_UNKNOWN = "Unknown",
-    SI_PA_ITEM_OTHERUNKNOWN = "Unknown by other character",
+	SI_PA_ITEM_OTHERUNKNOWN = "Unknown by other character",
     SI_PA_ITEM_UNCOLLECTED = "Uncollected",
     SI_PA_ITEM_COMPANION_ITEM = "Companion Item"
 }

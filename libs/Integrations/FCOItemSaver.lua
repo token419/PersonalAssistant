@@ -34,7 +34,7 @@ local function getCurrentFCOISFlags()
     local lockedPreventsAutoSell = false
     local lockedPreventsMoving = false
     -- if PAIntegration and FCOIS are running, update the flags with values from SavedVars
-    if PA.Integration and isFCOISLoadedProperly() then
+    if PA.Integration and PA.Integration.SavedVars and PA.Integration.SavedVars.FCOItemSaver and isFCOISLoadedProperly() then
         local PAIFCOISSavedVars = PA.Integration.SavedVars.FCOItemSaver
         autoSellMarked = PAIFCOISSavedVars.Sell.autoSellMarked
         lockedPreventsAutoSell = PAIFCOISSavedVars.Locked.preventAutoSell

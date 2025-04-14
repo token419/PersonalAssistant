@@ -33,8 +33,8 @@ PersonalAssistant.Constants = {
 			WORKER = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant ", "|r", "|cFFD700", "W", "|r", "|cFFFFFF", "orker", "|r"}),
         },
         AUTHOR = "Klingo, |c3CB371@Masteroshi430|r",
-        VERSION_ADDON = 20250408,
-        VERSION_DISPLAY = "2025.04.08-2",
+        VERSION_ADDON = 20250411,
+        VERSION_DISPLAY = "2025.04.11-3",
         WEBSITE = "https://www.esoui.com/downloads/info3512-PersonalAssistantBankingJunkLootRepairMasteroshi430sbranch.html",
         FEEDBACK = "https://www.esoui.com/downloads/info3512-PersonalAssistantBankingJunkLootRepairMasteroshi430sbranch.html#comments",
         KEYWORDS = {
@@ -425,10 +425,10 @@ PersonalAssistant.Constants = {
                 SMALL = string.format("|c66FF66%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 24, 24)),
             },
             OTHERUNKNOWN = {
-                PATH = "/esoui/art/campaign/overview_indexicon_bonus_down.dds",
-                NORMAL = string.format("|ffd966%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 32, 32)),
-                SMALL = string.format("|ffd966%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 24, 24)),
-            },
+                 PATH = "/esoui/art/campaign/overview_indexicon_bonus_down.dds",
+                 NORMAL = string.format("|ffd966%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 32, 32)),
+                 SMALL = string.format("|ffd966%s|r", zo_iconFormatInheritColor("/esoui/art/campaign/overview_indexicon_bonus_down.dds", 24, 24)),
+             },
             UNCOLLECTED = {
                 PATH = "/esoui/art/icons/emotes/emotecategoryicon_collected.dds",
                 NORMAL = string.format("|c66ECFF%s|r", zo_iconFormatInheritColor("/esoui/art/icons/emotes/emotecategoryicon_collected.dds", 32, 32)),

@@ -261,7 +261,7 @@ local function RefreshPAJunkEventRegistration()
 
         if PAJMenuFunctions.getKeybindingMarkUnmarkAsJunkSetting() or PAJMenuFunctions.getKeybindingDestroyItemSetting() then
             -- initialize enabled/visible hooks on inventory items
-            zo_callLater(function() PAJ.KeybindStrip.initHooksOnInventoryItems() end, 50)
+            zo_callLater(function() PAJ.KeybindStrip.initHooksOnInventoryItems() end, 50) 
         end
 
         -- Cross-Addon events and hooks
@@ -269,7 +269,7 @@ local function RefreshPAJunkEventRegistration()
         -- Register Item Context Menu
         local LCM = LibCustomMenu or LibStub("LibCustomMenu")
         if LCM then
-            zo_callLater(function() PAItemContextMenu.initHooksOnInventoryContextMenu(LCM) end, 50)
+            zo_callLater(function() PAItemContextMenu.initHooksOnInventoryContextMenu(LCM) end, 50) 
         else
             PA.debugln("Cannot initialise InventoryContextMenu hooks because LibCustomMenu is not available")
         end
@@ -306,7 +306,7 @@ local function RefreshPALootEventRegistration()
             RegisterForEvent(PAL.AddonName, EVENT_TRADING_HOUSE_RESPONSE_RECEIVED, PAL.ItemIcons.initHooksOnTradeHouse, "TradeHouseHook")
 
             -- initialize Item Visuals on bags, crafting stations, and the loot window
-			zo_callLater(function()
+			zo_callLater(function()   
             PAL.ItemIcons.initHooksOnBags()
             PAL.ItemIcons.initHooksOnCraftingStations()
             PAL.ItemIcons.initHooksOnLootWindow()
@@ -362,7 +362,7 @@ local function RefreshPARepairEventRegistration()
 		local autoBuyRepairKits = PARMenuFunctions.getAutoBuyRepairKitsEnabledSetting()
         local autoBuySoulGems = PARMenuFunctions.getAutoBuySoulGemsEnabledSetting()
 		local autoBuySiegeItems = PARMenuFunctions.getAutoBuySiegeItemsEnabledSetting()
-
+		
 		local anyAutoBuySiegeItem = false
 		local PARepairSavedVars = PAR.SavedVars
 		local siegeItems = PA.Repair.SiegeWeapons[GetUnitAlliance("player")]
@@ -371,12 +371,12 @@ local function RefreshPARepairEventRegistration()
 			   anyAutoBuySiegeItem = true
 			end
 		end
-
+		
         if autoRepairEquipped or autoRepairInventory or autoBuyRepairKits or autoBuySoulGems or autoBuySiegeItems then
             -- Register for GoldRepair
             if (autoRepairEquipped and PARMenuFunctions.getRepairEquippedWithGoldSetting()) or
                (autoRepairInventory and PARMenuFunctions.getRepairInventoryWithGoldSetting()) or
-				(autoBuyRepairKits and (PARMenuFunctions.getBuyEquipmentRepairKitsSetting() or PARMenuFunctions.getBuyCyrodiilRepairKitsSetting() or PARMenuFunctions.getBuyBridgeAndMilegateRepairKitsSetting())) or
+				(autoBuyRepairKits and (PARMenuFunctions.getBuyEquipmentRepairKitsSetting() or PARMenuFunctions.getBuyCyrodiilRepairKitsSetting() or PARMenuFunctions.getBuyBridgeAndMilegateRepairKitsSetting())) or 
 				(autoBuySoulGems and (PARMenuFunctions.getBuyFullSoulGemsSetting() or PARMenuFunctions.getBuyEmptySoulGemsSetting() or PARMenuFunctions.getBuyLockpicksSetting())) or
                  (autoBuySiegeItems and anyAutoBuySiegeItem) then
                 -- check if AutoSellJunk is also enabled
@@ -456,13 +456,13 @@ local function RefreshPAWorkerEventRegistration()
         PAW.debugln("RefreshPAWorkerEventRegistration")
         -- Check if the functionality is turned on within the addon
         local PAWMenuFunctions = PA.MenuFunctions.PAWorker
-
+		
         --Check if the functionalities are turned on within the addon
 		local autoDeconstruct = PAWMenuFunctions.getAutoDeconstructSetting()
 		local autoRefine = PAWMenuFunctions.getAutoRefineSetting()
 		local autoResearchTrait = PAWMenuFunctions.getAutoResearchTraitSetting()
-
-
+		
+		
 		if autoDeconstruct or autoRefine or autoResearchTrait then
 		    RegisterForEvent(PAW.AddonName, EVENT_CRAFTING_STATION_INTERACT, function( _, craftSkill, sameStation, craftMode) PAW.StartCraftingInterraction(craftSkill, sameStation, craftMode, autoDeconstruct, autoRefine, autoResearchTrait) end)
 			RegisterForEvent(PAW.AddonName, EVENT_END_CRAFTING_STATION_INTERACT, function() PAW.StartCraftingInterraction() end)

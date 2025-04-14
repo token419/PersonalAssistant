@@ -206,7 +206,6 @@ local function CanDeconstructItem(bagId, slotIndex)
               ZO_MenuBar_SelectDescriptor(SMITHING.modeBar, SMITHING_MODE_DECONSTRUCTION, true, false) 
 		   end
 	   end
-	    PAW.hasDeconstructed = true
 	    return true
 	else
         return false	
@@ -219,7 +218,7 @@ local function FilterThisBagAndAddToMessage(bagId)
     PAW.hasDeconstructedSomething = false
 	local bagSlots = GetBagSize(bagId)
 	for slotIndex = 0, bagSlots do
-		if CanDeconstructItem(bagId, slotIndex) then
+		if CanDeconstructItem(bagId, slotIndex) and (IsESOPlusSubscriber() or GetNumBagFreeSlots(BAG_BACKPACK) >= PA.Loot.SavedVars.InventorySpace.lowInventorySpaceThreshold) then
  			local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
 			if AddItemToDeconstructMessage(bagId, slotIndex, 1) then
 			   PAW.hasDeconstructedSomething = true 
@@ -227,7 +226,6 @@ local function FilterThisBagAndAddToMessage(bagId)
 			end  
 		end
 	end
-
 end
 
 -- --------------------------------------------------------------------------------------------------------------------
@@ -257,7 +255,6 @@ end
 -- --------------------------------------------------------------------------------------------------------------------
 
 local function StartDeconstructing(autoRefine, autoResearchTrait)
-
     PrepareDeconstructMessage()
 
 	FilterThisBagAndAddToMessage(BAG_BACKPACK)
@@ -292,13 +289,13 @@ end
 
 
 local function HasAnyCraftingWrit()
+    if not CRAFT_ADVISOR_MANAGER:HasActiveWrits() then return false end
 	local anyFound = false 
     
 	local craftingStation = PAW.currentCraftingStation
 	for i = 1 , GetNumJournalQuests() do
 	    -- Is this a crafting quest (writ)?
-		if GetJournalQuestType(i) == QUEST_TYPE_CRAFTING then 
-		   
+		--if GetJournalQuestType(i) == QUEST_TYPE_CRAFTING then 
 		    local CraftType
 			-- Is this a master writ or a regular writ? 
 		    if GetQuestConditionMasterWritInfo(i, 1, 1) then
@@ -309,7 +306,9 @@ local function HasAnyCraftingWrit()
 				 if CraftType == 0 then
 				     _, _, CraftType = GetQuestConditionItemInfo(i, 1, 2)
 				 end
-
+				 if CraftType == 0 then
+				     _, _, CraftType = GetQuestConditionItemInfo(i, 1, 3)
+				 end
 			end
 
 			--d("crafting station: "..craftingStation.." "..CraftType)
@@ -338,7 +337,7 @@ local function HasAnyCraftingWrit()
 			       anyFound = true
 			   end
 			end
-		end
+		--end
 	end
 	
 	return anyFound
@@ -383,7 +382,8 @@ local function StartCraftingInterraction(craftSkill, sameStation, craftMode, aut
 		PAW.currentCraftingStation = "JewelryCrafting"
 	else
         PAW.currentCraftingStation = "None"	
-		PAW.hasDeconstructed = false 
+		PAW.hasDeconstructedSomething = false
+        PAW.hasCraftedSomething = false 		
 	end
  
 	
@@ -391,9 +391,11 @@ local function StartCraftingInterraction(craftSkill, sameStation, craftMode, aut
 	    return 
 	end
 	
-	if WritCreater then
-		function WritCreater.IsOkayToExitCraftStation() -- cancels LWC auto exit station
-			return false
+	if PA.MenuFunctions.PAWorker.getAutoExitCraftingSetting() then
+		if WritCreater then
+			function WritCreater.IsOkayToExitCraftStation() -- cancels LWC auto exit station
+				return false
+			end
 		end
 	end
 
@@ -402,13 +404,15 @@ local function StartCraftingInterraction(craftSkill, sameStation, craftMode, aut
        EVENT_MANAGER:RegisterForEvent(PA.AddonName, EVENT_CRAFT_COMPLETED, function()
 			StartCraftingInterraction(craftSkill, sameStation, craftMode, autoDeconstruct, autoRefine, autoResearchTrait)
 	   end )
-       PAW.hasCraftedSomething = true 	   
+       PAW.hasCraftedSomething = true 	
 	   return 
 	end	
 	
 	if not autoDeconstruct and not autoRefine then -- autoDeconstruct and autoRefine are both off so we abort
 	    if autoResearchTrait then
 		   PAW.StartResearchTrait(PAW.hasCraftedSomething)
+		else
+		    zo_callLater(function() CALLBACK_MANAGER:FireCallbacks("PersonalAssistant_AutomaticCraftingStationClose") SCENE_MANAGER:ShowBaseScene() end, 1000)  -- exit crafting table
 		end
     	return
 	end
@@ -488,13 +492,15 @@ local function StartCraftingInterraction(craftSkill, sameStation, craftMode, aut
 	   if PAW.currentCraftingStation ~= "Universal" and PAW.currentCraftingStation ~= "Enchanting" then -- ensure it is not universal deconstruction or enchanting before calling autorefine
 		   PAW.StartRefining(autoResearchTrait, PAW.hasCraftedSomething)
 	   elseif PAW.currentCraftingStation == "Enchanting" and PA.MenuFunctions.PAWorker.getAutoExitCraftingSetting() then
-	          zo_callLater(function() CALLBACK_MANAGER:FireCallbacks("PersonalAssistant_AutomaticCraftingStationClose") SCENE_MANAGER:ShowBaseScene() end, 1000)  -- exit crafting table
+	          zo_callLater(function() if PAW.hasCraftedSomething or PAW.hasDeconstructedSomething then CALLBACK_MANAGER:FireCallbacks("PersonalAssistant_AutomaticCraftingStationClose") SCENE_MANAGER:ShowBaseScene() end end, 1000)  -- exit crafting table
 	   end
 	   return 
 	end
 	
 	StartDeconstructing(autoRefine, autoResearchTrait) -- everything else is good so we start deconstructing
 end
+
+
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- Export

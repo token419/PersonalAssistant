@@ -34,8 +34,8 @@ end
 
 local function IsEnabled()
     if PA == nil then PA = PersonalAssistant end -- workaround 08/06/2023
-	if PA and PA.Integration and PA.Integration.SavedVars and PA.Integration.SavedVars.CharacterKnowledge then
-        return PA.Integration.SavedVars.CharacterKnowledge.enabled
+	if PA and PA.Integration and PA.Integration.SavedVars and PA.Integration.SavedVars.CharacterKnowledge and PA.Integration.SavedVars.CharacterKnowledge.enabled then
+        return true
 	else
         return false
 	end
@@ -44,50 +44,48 @@ end
 local function IsKnown(itemLink)
     if LCK == nil then LCK = LibCharacterKnowledge end -- workaround 27/11/2022
 
-    local characters = LCK.GetItemKnowledgeList(itemLink)
-    local inList = false
-    local known = false
+     local characters = LCK.GetItemKnowledgeList(itemLink)
+     local inList = false
+     local known = false
 
-    for i, character in ipairs(characters) do
+     for i, character in ipairs(characters) do
 
-        local knowledge = LCK.GetItemKnowledgeForCharacter(itemLink, nil, character.id)
+         local knowledge = LCK.GetItemKnowledgeForCharacter(itemLink, nil, character.id)
 
-        -- Fail fast if it's us
-        if character.name == GetUnitName("player") then
-            inList = true
-            if knowledge == LCK.KNOWLEDGE_KNOWN then known = true end
-            break
-        end
+         -- Fail fast if it's us
+         if character.name == GetUnitName("player") then
+             inList = true
+             if knowledge == LCK.KNOWLEDGE_KNOWN then known = true end
+             break
+         end
 
-        if knowledge == LCK.KNOWLEDGE_UNKNOWN then
-            known = true
-            break
-        end
-    end
+         if knowledge == LCK.KNOWLEDGE_UNKNOWN then
+             known = true
+             break
+         end
+     end
 
-    if inList == false then return true end
-    return known
+     if inList == false then return true end
+     return known
 
 end
 
-local function IsAllKnown(itemLink)
-    if LCK == nil then LCK = LibCharacterKnowledge end -- workaround 27/11/2022
+ local function IsAllKnown(itemLink)
+     if LCK == nil then LCK = LibCharacterKnowledge end -- workaround 27/11/2022
 
-    local characters = LCK.GetItemKnowledgeList(itemLink)
-    local known = true
+     local characters = LCK.GetItemKnowledgeList(itemLink)
+     local known = true
 
-    for i, character in ipairs(characters) do
+     for i, character in ipairs(characters) do
 
-        local knowledge = LCK.GetItemKnowledgeForCharacter(itemLink, nil, character.id)
+         local knowledge = LCK.GetItemKnowledgeForCharacter(itemLink, nil, character.id)
 
-        if knowledge == LCK.KNOWLEDGE_UNKNOWN then
-            known = false
-            break
-        end
+         if knowledge == LCK.KNOWLEDGE_UNKNOWN then
+             known = false
+             break
+         end
     end
-
     return known
-
 end
 
 local function RegisterForInitializationCallback(executableFunction)
@@ -105,6 +103,6 @@ PA.Libs.CharacterKnowledge = {
     IsInstalled = IsInstalled,
     IsEnabled = IsEnabled,
     IsKnown = IsKnown,
-    IsAllKnown = IsAllKnown,
+	IsAllKnown = IsAllKnown,
     RegisterForInitializationCallback = RegisterForInitializationCallback
 }

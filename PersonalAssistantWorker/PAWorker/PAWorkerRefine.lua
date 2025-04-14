@@ -37,9 +37,10 @@ local function DoubleCheckAndRefineThatMaterial(searchedItemId)
     local totalCount = backpackCount + bankCount + craftBagCount
 	
 	
+	
 	for slotIndex = 0, bagSlots do
 	    local itemId = GetItemId(bagId, slotIndex)
-		if itemId == searchedItemId and CanRefineItem(bagId, slotIndex) then
+		if itemId == searchedItemId and CanRefineItem(bagId, slotIndex) and (IsESOPlusSubscriber() or GetNumBagFreeSlots(BAG_BACKPACK) >= PA.Loot.SavedVars.InventorySpace.lowInventorySpaceThreshold) then
 		    -- now we can open the refine tab
 		    if IsInGamepadPreferredMode() and SCENE_MANAGER:GetCurrentScene():GetName() ~= "gamepad_smithing_refine" then
 			    SCENE_MANAGER:Show("gamepad_smithing_refine")
@@ -66,6 +67,7 @@ local function DoubleCheckAndRefineThatMaterial(searchedItemId)
             local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
 			PAW.println(SI_PA_CHAT_ITEM_REFINED, itemLink)
 			foundIt = true
+			PAW.hasRefined = true
 			return
 		end
 	end
@@ -75,7 +77,7 @@ local function DoubleCheckAndRefineThatMaterial(searchedItemId)
 		bagSlots = GetBagSize(bagId)
 		for slotIndex = 0, bagSlots do
 			local itemId = GetItemId(bagId, slotIndex)
-			if itemId == searchedItemId and CanRefineItem(bagId, slotIndex) then
+			if itemId == searchedItemId and CanRefineItem(bagId, slotIndex) and (IsESOPlusSubscriber() or GetNumBagFreeSlots(BAG_BACKPACK) >= PA.Loot.SavedVars.InventorySpace.lowInventorySpaceThreshold) then
 				-- now we can open the refine tab
 				if IsInGamepadPreferredMode() and SCENE_MANAGER:GetCurrentScene():GetName() ~= "gamepad_smithing_refine" then
 					SCENE_MANAGER:Show("gamepad_smithing_refine")
@@ -100,6 +102,7 @@ local function DoubleCheckAndRefineThatMaterial(searchedItemId)
                 local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
 				PAW.println(SI_PA_CHAT_ITEM_REFINED, itemLink)
 				foundIt = true
+				PAW.hasRefined = true
 				return
 			end
 		end	
@@ -110,7 +113,7 @@ local function DoubleCheckAndRefineThatMaterial(searchedItemId)
         local slotIndex = GetNextVirtualBagSlotId(nil)
 	    while slotIndex ~= nil do 
 			local itemId = GetItemId(bagId, slotIndex)
-			if itemId == searchedItemId and CanRefineItem(bagId, slotIndex) then
+			if itemId == searchedItemId and CanRefineItem(bagId, slotIndex) and (IsESOPlusSubscriber() or GetNumBagFreeSlots(BAG_BACKPACK) >= PA.Loot.SavedVars.InventorySpace.lowInventorySpaceThreshold) then
 				-- now we can open the refine tab
 				if IsInGamepadPreferredMode() and SCENE_MANAGER:GetCurrentScene():GetName() ~= "gamepad_smithing_refine" then
 					SCENE_MANAGER:Show("gamepad_smithing_refine")
@@ -134,6 +137,7 @@ local function DoubleCheckAndRefineThatMaterial(searchedItemId)
 				end	
                 local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
 				PAW.println(SI_PA_CHAT_ITEM_REFINED, itemLink)
+				PAW.hasRefined = true
                 return 
 			end
 			slotIndex = GetNextVirtualBagSlotId(slotIndex)
@@ -216,10 +220,11 @@ local function StartRefining(autoResearchTrait, hasDeconstructedBefore)
 	     return
 	  end	
 	  
+	  PAW.hasRefined = false
       local whenToCallReasearchTrait = 1000	  
 	  for key, searchedItemId in ipairs(itemsToRefine) do
 		  local time = key * 1000 -- we call each mat 1 second later to avoid the confirm prompt between different refine materials & also because coming from deconstruct
-		  if not PAW.hasDeconstructed then -- don't wait 1 second if there was no deconstruction before
+		  if not hasDeconstructedBefore then -- don't wait 1 second if there was no deconstruction before
 		     time = time - 979 
 		  end
 		  zo_callLater(function() DoubleCheckAndRefineThatMaterial(searchedItemId) end, time)
@@ -227,9 +232,9 @@ local function StartRefining(autoResearchTrait, hasDeconstructedBefore)
       end
 	  
 	  if autoResearchTrait then
-		 zo_callLater(function() PAW.StartResearchTrait(true) end, whenToCallReasearchTrait)  
-      elseif PA.MenuFunctions.PAWorker.getAutoExitCraftingSetting() and hasDeconstructedBefore then
-           zo_callLater(function() CALLBACK_MANAGER:FireCallbacks("PersonalAssistant_AutomaticCraftingStationClose") SCENE_MANAGER:ShowBaseScene() end, whenToCallReasearchTrait)  -- exit crafting table	
+		 zo_callLater(function() PAW.StartResearchTrait(true) PAW.hasRefined = false end, whenToCallReasearchTrait)  
+      elseif PA.MenuFunctions.PAWorker.getAutoExitCraftingSetting() then
+           zo_callLater(function() if hasDeconstructedBefore or PAW.hasRefined then CALLBACK_MANAGER:FireCallbacks("PersonalAssistant_AutomaticCraftingStationClose") PAW.hasRefined = false SCENE_MANAGER:ShowBaseScene() end end, whenToCallReasearchTrait)  -- exit crafting table	
 	  end
 	  
 end

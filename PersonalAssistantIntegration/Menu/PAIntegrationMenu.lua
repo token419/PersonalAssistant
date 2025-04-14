@@ -69,7 +69,7 @@ local function _createPAIntegrationMenu()
             text = PAC.COLOR.ORANGE:Colorize(GetString(SI_PA_MENU_INTEGRATION_NOTHING_AVAILABLE)),
         })
     end
-
+	
     -- -----------------------------------------------------------------------------------------------------------------
     -- check if player has the addon [CharacterKnowledge]
     if PA.Libs.CharacterKnowledge.IsInstalled() then

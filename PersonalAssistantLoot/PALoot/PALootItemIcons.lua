@@ -157,13 +157,13 @@ local function _setKnownItemIcon(itemIconControl, iconSize, tooltipText)
     _setItemIcon(itemIconControl, PAC.ICONS.OTHERS.KNOWN.PATH, iconSize, tooltipText, red, green, blue, 0.4)
 end
 
--- sets the "otherUunknown" icon to the control, plus tooltip
-local function _setOtherUnknownItemIcon(itemIconControl, iconSize, tooltipText)
-    local red = 1.0     -- 255
-    local green = 1.0   -- 255
-    local blue = 0.0     -- 0
-    _setItemIcon(itemIconControl, PAC.ICONS.OTHERS.OTHERUNKNOWN.PATH, iconSize, tooltipText, red, green, blue, 1)
-end
+-- sets the "otherUnknown" icon to the control, plus tooltip
+ local function _setOtherUnknownItemIcon(itemIconControl, iconSize, tooltipText)
+     local red = 1.0     -- 255
+     local green = 1.0   -- 255
+     local blue = 0.0     -- 0
+     _setItemIcon(itemIconControl, PAC.ICONS.OTHERS.OTHERUNKNOWN.PATH, iconSize, tooltipText, red, green, blue, 1)
+ end
 
 -- sets the "unknown" icon to the control, plus tooltip
 local function _setUnknownItemIcon(itemIconControl, iconSize, tooltipText)
@@ -262,15 +262,15 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
         if (itemType == ITEMTYPE_RECIPE and PALootItemIconsSV.Recipes.showKnownIcon) or
                 (itemType == ITEMTYPE_RACIAL_STYLE_MOTIF and PALootItemIconsSV.Motifs.showKnownIcon) or
 				(( itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY_SCRIPT or itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY) and PALootItemIconsSV.Scribing.showKnownIcon) then
-            if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-                if PA.Libs.CharacterKnowledge.IsAllKnown(itemLink) then
-                    _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
-                else
-                    _setOtherUnknownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_OTHERUNKNOWN))
-                end
-            else
-                _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
-            end
+             if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                 if PA.Libs.CharacterKnowledge.IsAllKnown(itemLink) then
+                     _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
+                 else
+                     _setOtherUnknownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_OTHERUNKNOWN))
+                 end
+             else
+                 _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
+             end
         elseif ((itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY) and PALootItemIconsSV.ApparelWeapons.showKnownIcon) then
             local itemTraitType = GetItemLinkTraitType(itemLink)
             local traitName = GetString("SI_ITEMTRAITTYPE", itemTraitType)

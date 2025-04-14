@@ -19,7 +19,7 @@ local function depositOrWithdrawFCOISMarkedItems()
     PAB.debugln("==============================================================")
     PAB.debugln("PA.Banking.depositOrWithdrawFCOISMarkedItems (4)")
 
-    if PA.Integration and PA.Libs.FCOItemSaver.isFCOISLoadedProperly() then
+    if PA.Integration and PA.Integration.SavedVars and PA.Integration.SavedVars.FCOItemSaver and PA.Libs.FCOItemSaver.isFCOISLoadedProperly() then
         local PAIFCOISSavedVars = PA.Integration.SavedVars.FCOItemSaver
         
         -- prepare the table with fcoisFlags to deposit and withdraw

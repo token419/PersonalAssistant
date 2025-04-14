@@ -29,25 +29,25 @@ end
 local function IsScribingScriptKnown(itemLink)
     local PALCK = PA.Libs.CharacterKnowledge
 	if PALCK.IsInstalled() and PALCK.IsEnabled() then
-		 return PALCK.IsKnown(itemLink) 
-	else 
+		 return PALCK.IsKnown(itemLink)
+	else
 		 local craftedAbilityScriptId = GetItemLinkItemUseReferenceId(itemLink) or 0
 		 local craftedAbilityScriptData = SCRIBING_DATA_MANAGER:GetCraftedAbilityScriptData(craftedAbilityScriptId)
 		 local isUnlocked = craftedAbilityScriptData:IsUnlocked()
 		 return isUnlocked
-	end		 
-end 
+	end
+end
 
 local function IsScribingGrimoireKnown(itemLink)
     local PALCK = PA.Libs.CharacterKnowledge
 	if PALCK.IsInstalled() and PALCK.IsEnabled() then
-		 return PALCK.IsKnown(itemLink) 
-	else 
+		 return PALCK.IsKnown(itemLink)
+	else
 		 local craftedAbilityId = GetItemLinkItemUseReferenceId(itemLink) or 0
 		 local craftedAbilityData = SCRIBING_DATA_MANAGER:GetCraftedAbilityData(craftedAbilityId)
 		 local isUnlocked = craftedAbilityData:IsUnlocked()
 		 return isUnlocked
-	end		
+	end
 end
 
 -- =================================================================================================================
@@ -246,7 +246,7 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
         end
         if specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE then -- hereherehere
             for _, listSpecializedItemType in pairs(combinedLists.knownStylePages) do
-                if listSpecializedItemType == itemData.specializedItemType then 
+                if listSpecializedItemType == itemData.specializedItemType then
 				   if PA.HelperFunctions.getItemLinkLearnableStatus(itemData.itemLink) == PAC.LEARNABLE.KNOWN then
 				      return true
 				   end
@@ -513,10 +513,10 @@ end
 local function getFormattedText(text, ...)
     local args = { ... }
 	local unpackedString = ""
-	
+
 	for k,v in pairs(args) do -- workaround attempt for a weird "bad argument #4 to 'string.format' (integer expected, got string)" error with simplified Chinese language
  	   if type(v) == "number" then
-	       
+
 	   else
 	       args[k] = tonumber(v) or v
 	   end
@@ -671,11 +671,11 @@ end
 --- Checks the itemLink if it is known (recipes and motifs), researched (item traits), or already added to collection (style pages and containers)
 ---@param itemLink string the itemLink to be checked
 ---@return string Constants.LEARNABLE.KNOWN, Constants.LEARNABLE.KNOWN or nil if there is no known/unknown status
-local function getItemLinkLearnableStatus(itemLink) 
+local function getItemLinkLearnableStatus(itemLink)
     local itemType, specializedItemType = GetItemLinkItemType(itemLink)
     local itemFilterType = GetItemLinkFilterTypeInfo(itemLink)
 	local itemUseType = GetItemLinkItemUseType(itemLink)
-	
+
     if isItemLinkForCompanion(itemLink) then return nil end
     if itemType == ITEMTYPE_RECIPE then
         if IsRecipeKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
@@ -706,11 +706,11 @@ local function getItemLinkLearnableStatus(itemLink)
                 return PAC.LEARNABLE.UNKNOWN
             end
         end
-	-- Scribing Scripts	
+	-- Scribing Scripts
 	elseif itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY_SCRIPT then
 	    if IsScribingScriptKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
 		return PAC.LEARNABLE.UNKNOWN
-		
+
 	-- Scribing Grimoires
 	elseif itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY then
 	    if IsScribingGrimoireKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
@@ -762,7 +762,7 @@ PA.HelperFunctions = {
     isAddonRunning = isAddonRunning,
     isItemLinkCharacterBound = isItemLinkCharacterBound,
     isItemLinkIntricateTraitType = isItemLinkIntricateTraitType,
-    isItemLinkOrnateTraitType = isItemLinkOrnateTraitType,	
+    isItemLinkOrnateTraitType = isItemLinkOrnateTraitType,
     getIconExtendedItemLink = getIconExtendedItemLink,
     getItemLinkLearnableStatus = getItemLinkLearnableStatus
 }

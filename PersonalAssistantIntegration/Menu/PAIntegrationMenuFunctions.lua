@@ -227,7 +227,7 @@ local PAIntegrationMenuFunctions = {
     setCKICharacterName = function(value) setValue(value, { "CharacterKnowledge", "characterName"}) end,
     isCKICharacterNameDisabled = function() return not getCKIEnabled() end,
     isCKInitializingDisabled = function() return not getCKIEnabled() end,
-
+	
     -- ----------------------------------------------------------------------------------
     -- DOLGUBON'S LAZY WRIT CRAFTER
     -- -----------------------------
