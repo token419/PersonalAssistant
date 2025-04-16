@@ -86,6 +86,22 @@ local PABankingMenuDefaults = {
                 Known = PAC.MOVE.IGNORE,
                 Unknown = PAC.MOVE.IGNORE,
             },
+            [ITEMTYPE_CRAFTED_ABILITY] = { -- SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY
+                Known = PAC.MOVE.IGNORE,
+                Unknown = PAC.MOVE.IGNORE,
+            },
+            [SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_PRIMARY] = {
+                Known = PAC.MOVE.IGNORE,
+                Unknown = PAC.MOVE.IGNORE,
+            },
+            [SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_SECONDARY] = {
+                Known = PAC.MOVE.IGNORE,
+                Unknown = PAC.MOVE.IGNORE,
+            },
+            [SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_TERTIARY] = {
+                Known = PAC.MOVE.IGNORE,
+                Unknown = PAC.MOVE.IGNORE,
+            },
         },
 
         MasterWritCraftingTypes = {
@@ -137,9 +153,6 @@ local PABankingMenuDefaults = {
             [SPECIALIZED_ITEMTYPE_TROPHY_RUNEBOX_FRAGMENT] = PAC.MOVE.IGNORE,
             [SPECIALIZED_ITEMTYPE_TROPHY_COLLECTIBLE_FRAGMENT] = PAC.MOVE.IGNORE,
             [SPECIALIZED_ITEMTYPE_TROPHY_UPGRADE_FRAGMENT] = PAC.MOVE.IGNORE,
-			[SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_PRIMARY] = PAC.MOVE.IGNORE,
-            [SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_SECONDARY] = PAC.MOVE.IGNORE,
-            [SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_TERTIARY] = PAC.MOVE.IGNORE,
         },
 
         ItemTraitTypes = {

@@ -181,12 +181,11 @@ end
 ---@param skipFcoisLocked boolean whether items that are 'Locked' by FCOIS should be skipped
 ---@param deposit boolean whether this is a deposit or withdraw comparison
 ---@return fun(itemData: table) a comparator function that only returns item that match the complex list and pass the junk-test
-local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJunk, skipItemsWithCustomRule, skipFcoisLocked, deposit)
-    local function _isItemOfItemTypeAndKnowledge(itemType, itemLink, expectedItemType, expectedIsKnown)
+local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJunk, skipItemsWithCustomRule, skipFcoisLocked, deposit) --token419
+    local function _isItemOfItemTypeAndKnowledge(itemType, specializedItemType, itemLink, expectedItemType, expectedIsKnown)
         if itemType == expectedItemType then
             if itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
                 if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-                     -- expectedIsKnown responses: (Known == False)  (Unknown == true)
                      local known = IsBookKnown(itemLink)
                      if deposit == true then -- Deposit
                          if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
@@ -206,7 +205,6 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
                 end
             elseif itemType == ITEMTYPE_RECIPE then
                 if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-                     -- expectedIsKnown responses: (Known == False)  (Unknown == true)
                      local known = IsRecipeKnown(itemLink)
                      if deposit == true then -- Deposit
                          if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
@@ -219,6 +217,70 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
                      end
                  else -- Default Behavior
                      local known = IsRecipeKnown(itemLink)
+                     if known == expectedIsKnown then return true end
+                 end
+            elseif itemType == ITEMTYPE_CRAFTED_ABILITY then
+                if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                     local known = IsScribingGrimoireKnown(itemLink)
+                     if deposit == true then -- Deposit
+                         if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                             return true
+                         end
+                     else -- Withdraw
+                         if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                             return true
+                         end
+                     end
+                 else -- Default Behavior
+                     local known = IsScribingScriptKnown(itemLink)
+                     if known == expectedIsKnown then return true end
+                 end
+            elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_PRIMARY then
+                if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                     local known = IsScribingScriptKnown(itemLink)
+                     if deposit == true then -- Deposit
+                         if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                             return true
+                         end
+                     else -- Withdraw
+                         if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                             return true
+                         end
+                     end
+                 else -- Default Behavior
+                     local known = IsScribingScriptKnown(itemLink)
+                     if known == expectedIsKnown then return true end
+                 end
+            elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_SECONDARY then
+                if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                     local known = IsScribingScriptKnown(itemLink)
+                     if deposit == true then -- Deposit
+                         if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                             return true
+                         end
+                     else -- Withdraw
+                         if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                             return true
+                         end
+                     end
+                 else -- Default Behavior
+                     local known = IsScribingScriptKnown(itemLink)
+                     if known == expectedIsKnown then return true end
+                 end
+            elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_TERTIARY then
+                if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                     local known = IsScribingScriptKnown(itemLink)
+                     if deposit == true then -- Deposit
+                         if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                             return true
+                         end
+                     else -- Withdraw
+                         if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                             return true
+                         end
+                     end
+                 else -- Default Behavior
+                     local known = IsScribingScriptKnown(itemLink)
                      if known == expectedIsKnown then return true end
                  end
             end
@@ -299,10 +361,10 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
             end
         end
         for _, expectedItemType in pairs(combinedLists.learnableKnownItemTypes) do
-           if _isItemOfItemTypeAndKnowledge(itemType, itemData.itemLink, expectedItemType, true) then return true end
+           if _isItemOfItemTypeAndKnowledge(itemType, specializedItemType, itemData.itemLink, expectedItemType, true) then return true end
         end
         for _, expectedItemType in pairs(combinedLists.learnableUnknownItemTypes) do
-            if _isItemOfItemTypeAndKnowledge(itemType, itemData.itemLink, expectedItemType, false) then return true end
+            if _isItemOfItemTypeAndKnowledge(itemType, specializedItemType, itemData.itemLink, expectedItemType, false) then return true end
         end
         return false
     end
@@ -879,13 +941,31 @@ local function getItemLinkLearnableStatus(itemLink)
         end
 	-- Scribing Scripts
 	elseif itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY_SCRIPT then
-	    if IsScribingScriptKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
-		return PAC.LEARNABLE.UNKNOWN
+        if IsScribingScriptKnown(itemLink) then
+             return PAC.LEARNABLE.KNOWN
+        elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+             if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                 return PAC.LEARNABLE.UNKNOWN
+             else
+                 return PAC.LEARNABLE.OTHERUNKNOWN
+             end
+        else
+            return PAC.LEARNABLE.UNKNOWN
+        end
 
 	-- Scribing Grimoires
 	elseif itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY then
-	    if IsScribingGrimoireKnown(itemLink) then return PAC.LEARNABLE.KNOWN end
-		return PAC.LEARNABLE.UNKNOWN
+        if IsScribingGrimoireKnown(itemLink) then
+             return PAC.LEARNABLE.KNOWN
+        elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+             if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                 return PAC.LEARNABLE.UNKNOWN
+             else
+                 return PAC.LEARNABLE.OTHERUNKNOWN
+             end
+        else
+            return PAC.LEARNABLE.UNKNOWN
+        end
     end
     -- itemLink is neither known, nor unknown (not learnable or researchable)
     return nil

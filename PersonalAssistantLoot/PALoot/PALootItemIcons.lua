@@ -262,7 +262,7 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
         if (itemType == ITEMTYPE_RECIPE and PALootItemIconsSV.Recipes.showKnownIcon) or
                 (itemType == ITEMTYPE_RACIAL_STYLE_MOTIF and PALootItemIconsSV.Motifs.showKnownIcon) then
                 _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
-		elseif (( itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY_SCRIPT or itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY) and PALootItemIconsSV.Scribing.showKnownIcon) then
+		elseif ((itemType == ITEMTYPE_CRAFTED_ABILITY or itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT) and PALootItemIconsSV.Scribing.showKnownIcon) then
                  _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
         elseif ((itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY) and PALootItemIconsSV.ApparelWeapons.showKnownIcon) then
             local itemTraitType = GetItemLinkTraitType(itemLink)
@@ -277,7 +277,7 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
         if (itemType == ITEMTYPE_RECIPE and PALootItemIconsSV.Recipes.showUnknownIcon) or
                 (itemType == ITEMTYPE_RACIAL_STYLE_MOTIF and PALootItemIconsSV.Motifs.showUnknownIcon) then
               _setUnknownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_UNKNOWN))
-		elseif (( itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY_SCRIPT or itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY) and PALootItemIconsSV.Scribing.showUnknownIcon) then
+		elseif (itemType == ITEMTYPE_CRAFTED_ABILITY or itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and PALootItemIconsSV.Scribing.showUnknownIcon) then
 		      _setUnknownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_UNKNOWN))
         elseif ((itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY) and PALootItemIconsSV.ApparelWeapons.showUnknownIcon) then
             local itemTraitType = GetItemLinkTraitType(itemLink)
@@ -292,6 +292,8 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
         if (itemType == ITEMTYPE_RECIPE and PALootItemIconsSV.Recipes.showUnknownIcon) or
                 (itemType == ITEMTYPE_RACIAL_STYLE_MOTIF and PALootItemIconsSV.Motifs.showUnknownIcon) then
                 _setOtherUnknownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_OTHERUNKNOWN))
+		elseif ((itemType == ITEMTYPE_CRAFTED_ABILITY or itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT) and PALootItemIconsSV.Scribing.showUnknownIcon) then
+		      _setOtherUnknownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_UNKNOWN))
         end
     end
 end

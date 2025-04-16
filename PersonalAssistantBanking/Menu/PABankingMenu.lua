@@ -1339,16 +1339,27 @@ end
 -- -----------------------------------------------------------------------------------------------------------------
 
 local function _createPABAdvancedScribingSubmenuTable()
-    for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.SCRIBING) do
+    for _, itemType in pairs(PAC.BANKING_ADVANCED.LEARNABLE.SCRIBING) do
         PABAdvancedScribingSubmenuTable:insert({
             type = "dropdown",
-            name = GetString("SI_SPECIALIZEDITEMTYPE", specializedItemType),
+            name = GetString("SI_PA_MENU_BANKING_ADVANCED_KNOWN_ITEMTYPE", itemType),
             choices = PABMenuChoices.itemMoveMode,
             choicesValues = PABMenuChoicesValues.itemMoveMode,
-            getFunc = function() return PABMenuFunctions.getAdvancedItemTypeSpecializedMoveSetting(specializedItemType) end,
-            setFunc = function(value) PABMenuFunctions.setAdvancedItemTypeSpecializedMoveSetting(specializedItemType, value) end,
+            getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, true) end,
+            setFunc = function(value) PABMenuFunctions.setAdvancedLearnableItemTypeMoveSetting(itemType, value, true) end,
             disabled = PABMenuFunctions.isAdvancedItemsDisabled,
-            default = PABMenuDefaults.Advanced.SpecializedItemTypes[specializedItemType],
+            default = PABMenuDefaults.Advanced.LearnableItemTypes[itemType].Known,
+        })
+
+        PABAdvancedScribingSubmenuTable:insert({
+            type = "dropdown",
+            name = GetString("SI_PA_MENU_BANKING_ADVANCED_UNKNOWN_ITEMTYPE", itemType),
+            choices = PABMenuChoices.itemMoveMode,
+            choicesValues = PABMenuChoicesValues.itemMoveMode,
+            getFunc = function() return PABMenuFunctions.getAdvancedLearnableItemTypeMoveSetting(itemType, false) end,
+            setFunc = function(value) PABMenuFunctions.setAdvancedLearnableItemTypeMoveSetting(itemType, value, false) end,
+            disabled = PABMenuFunctions.isAdvancedItemsDisabled,
+            default = PABMenuDefaults.Advanced.LearnableItemTypes[itemType].Unknown,
         })
     end
 end

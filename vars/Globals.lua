@@ -501,6 +501,12 @@ PersonalAssistant.Constants = {
             RECIPE = {
                 ITEMTYPE_RECIPE,                            -- 29
             },
+			SCRIBING = {
+                ITEMTYPE_CRAFTED_ABILITY,
+                SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_PRIMARY,
+                SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_SECONDARY,
+                SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_TERTIARY,
+			},
         },
         MASTER_WRITS = {
             CRAFTING_TYPE_BLACKSMITHING,                    -- 1
@@ -558,11 +564,6 @@ PersonalAssistant.Constants = {
                 -- SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT,  -- 101 | handled separately
                 -- SPECIALIZED_ITEMTYPE_TROPHY_KEY    -- 107    TODO: check
             },
-			SCRIBING = {
-			   SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_PRIMARY,
-			   SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_SECONDARY,
-			   SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_TERTIARY,
-			},
             SURVEY_REPORTS = {  -- https://esoitem.uesp.net/viewlog.php?search=Survey%3A
                 [ITEMFILTERTYPE_BLACKSMITHING] = {
                     57687,  -- Blacksmith Survey: Auridon

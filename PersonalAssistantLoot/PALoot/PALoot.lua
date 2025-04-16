@@ -382,16 +382,35 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     local isRecipeKnown = PAHF.IsRecipeKnown(itemLink)
                     if not isRecipeKnown then
 					    if PALootSavedVars.LootEvents.LootRecipes.unknownRecipeMsg then
-                           PAL.println(SI_PA_CHAT_LOOT_RECIPE_UNKNOWN, itemLink)
+                            if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                                if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                                    d("Character Needs: "..tostring(PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink)))
+                                    PAL.println(SI_PA_CHAT_LOOT_RECIPE_UNKNOWN, itemLink)
+                                end
+                            else
+                                PAL.println(SI_PA_CHAT_LOOT_RECIPE_UNKNOWN, itemLink)
+                            end
 						end
 
 					    if specializedItemType == SPECIALIZED_ITEMTYPE_RECIPE_PROVISIONING_STANDARD_DRINK or specializedItemType == SPECIALIZED_ITEMTYPE_RECIPE_PROVISIONING_STANDARD_FOOD then -- recipe
 						    if PALootSavedVars.LootEvents.LootStyles.autoLearnRecipe then -- auto learn recipe
-							    learnNowOrLater(bagId, slotIndex)
+                                if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                                    if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                                        learnNowOrLater(bagId, slotIndex)
+                                    end
+                                else
+                                    learnNowOrLater(bagId, slotIndex)
+                                end
 							end
 					    else -- furnishing plan
 						    if PALootSavedVars.LootEvents.LootStyles.autoLearnFurnishingPlan then
-						       learnNowOrLater(bagId, slotIndex)
+                                if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                                    if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                                        learnNowOrLater(bagId, slotIndex)
+                                    end
+                                else
+                                    learnNowOrLater(bagId, slotIndex)
+                                end
 							end
 						end
 
@@ -407,21 +426,29 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
             -- Motifs
             elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
                 if PALootSavedVars.LootEvents.LootStyles.unknownMotifMsg or PALootSavedVars.LootEvents.LootStyles.autoLearnMotif then
-                    local isBook = IsItemLinkBook(itemLink)
-                    if isBook then
-                        local isKnown = PAHF.IsBookKnown(itemLink)
-                        if not isKnown then
-						   if PALootSavedVars.LootEvents.LootStyles.autoLearnMotif then -- auto learn motif
-						      learnNowOrLater(bagId, slotIndex)
-						   end
-
-                           if PALootSavedVars.LootEvents.LootStyles.unknownMotifMsg then
-						      PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
-						   end
-                        else
-                            -- Motif is already known; do nothing for now
-                               PAL.debugln("known motif looted: %s", itemLink)
+                    local isKnown = PAHF.IsBookKnown(itemLink)
+                    if not isKnown then
+                        if PALootSavedVars.LootEvents.LootStyles.autoLearnMotif then -- auto learn motif
+                            if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                                if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                                    learnNowOrLater(bagId, slotIndex)
+                                end
+                            else
+                                learnNowOrLater(bagId, slotIndex)
+                            end
                         end
+                        if PALootSavedVars.LootEvents.LootStyles.unknownMotifMsg then
+                            if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                                if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                                    PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
+                                end
+                            else
+                                PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
+                            end
+                        end
+                    else
+                        -- Motif is already known; do nothing for now
+                        PAL.debugln("known motif looted: %s", itemLink)
                     end
                 end
 
@@ -505,46 +532,65 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
             -- Scribing Scripts
 			elseif IsScribingEnabled() and GetItemLinkItemUseType(itemLink) == ITEM_USE_TYPE_CRAFTED_ABILITY_SCRIPT then
                 if PALootSavedVars.LootEvents.LootStyles.unknownScribingScriptMsg or PALootSavedVars.LootEvents.LootStyles.autoLearnScribingScript then
-					local isUnlocked = PAHF.IsScribingScriptKnown(itemLink)
+					local isKnown = PAHF.IsScribingScriptKnown(itemLink)
+					if not isKnown then
+					    if PALootSavedVars.LootEvents.LootStyles.unknownScribingScriptMsg then
+                            if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                                if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                                    PAL.println(SI_PA_CHAT_LOOT_SCRIBING_SCRIPT_UNKNOWN, itemLink)
+                                end
+                            else
+                                PAL.println(SI_PA_CHAT_LOOT_SCRIBING_SCRIPT_UNKNOWN, itemLink)
+                            end
+						end
 
-					if isUnlocked then
+						if PALootSavedVars.LootEvents.LootStyles.autoLearnScribingScript then -- auto learn scribing script
+                            if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                                if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                                    learnNowOrLater(bagId, slotIndex)
+                                end
+                            else
+                                learnNowOrLater(bagId, slotIndex)
+                            end
+						end
+					else
 					    -- Scribing Script already known
                         PAL.debugln("known scribing script looted: %s", itemLink)
 						if PALootSavedVars.LootEvents.LootStyles.autoMarkAsJunkScribingScript then
 						     tryToMarkAsJunk(bagId, slotIndex) -- hereherehere
 						end
-					else
-					    if PALootSavedVars.LootEvents.LootStyles.unknownScribingScriptMsg then
-                           PAL.println(SI_PA_CHAT_LOOT_SCRIBING_SCRIPT_UNKNOWN, itemLink)
-						end
-
-						if PALootSavedVars.LootEvents.LootStyles.autoLearnScribingScript then -- auto learn scribing script
-						   	learnNowOrLater(bagId, slotIndex)
-						end
-
 					end
 			    end
 
 			-- Scribing Grimoires
 			elseif IsScribingEnabled() and GetItemLinkItemUseType(itemLink) == ITEM_USE_TYPE_CRAFTED_ABILITY then
                 if PALootSavedVars.LootEvents.LootStyles.unknownScribingScriptMsg or PALootSavedVars.LootEvents.LootStyles.autoLearnScribingScript then
-                    local isUnlocked = PAHF.IsScribingGrimoireKnown(itemLink)
-
-					if isUnlocked then
+                    local isKnown = PAHF.IsScribingGrimoireKnown(itemLink)
+					if not isKnown then
+					    if PALootSavedVars.LootEvents.LootStyles.unknownScribingScriptMsg then
+                            if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                                if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                                    PAL.println(SI_PA_CHAT_LOOT_SCRIBING_SCRIPT_UNKNOWN, itemLink)
+                                end
+                            else
+                                PAL.println(SI_PA_CHAT_LOOT_SCRIBING_SCRIPT_UNKNOWN, itemLink)
+                            end
+						end
+						if PALootSavedVars.LootEvents.LootStyles.autoLearnScribingGrimoire then -- auto learn scribing grimoire
+                            if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                                if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                                    learnNowOrLater(bagId, slotIndex)
+                                end
+                            else
+                                learnNowOrLater(bagId, slotIndex)
+                            end
+						end
+					else
 					    -- Scribing Script already known; do nothing for know
                         PAL.debugln("known scribing grimoire looted: %s", itemLink)
 						if PALootSavedVars.LootEvents.LootStyles.autoMarkAsJunkScribingGrimoire then
 						     tryToMarkAsJunk(bagId, slotIndex) -- hereherehere
 						end
-					else
-					    if PALootSavedVars.LootEvents.LootStyles.unknownScribingScriptMsg then
-                           PAL.println(SI_PA_CHAT_LOOT_SCRIBING_SCRIPT_UNKNOWN, itemLink)
-						end
-
-						if PALootSavedVars.LootEvents.LootStyles.autoLearnScribingGrimoire then -- auto learn scribing grimoire
-						   	learnNowOrLater(bagId, slotIndex)
-						end
-
 					end
 			    end
 
