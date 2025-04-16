@@ -70,7 +70,7 @@ local PALStrings = {
     SI_PA_MENU_LOOT_AUTO_FILLET_T = "Auto fillet common fish to obtain Fish or Perfect Roe",
 	
 	-- Auto Combine collectibles
-    SI_PA_MENU_LOOT_AUTO_COMBINE_HEADER = table.concat({"When Looting ", GetString(SI_SPECIALIZEDITEMTYPE109)}), 
+    SI_PA_MENU_LOOT_AUTO_COMBINE_HEADER = table.concat({"When Looting ", GetString(SI_SPECIALIZEDITEMTYPE109)}),
     SI_PA_MENU_LOOT_AUTO_COMBINE = "Auto combine locked collectible fragments",
     SI_PA_MENU_LOOT_AUTO_COMBINE_T = "Auto combine fragments to unlock the collectible",
 
@@ -144,8 +144,8 @@ local PALStrings = {
     -- -----------------------------------------------------------------------------------------------------------------
     -- PALoot --
     SI_PA_CHAT_LOOT_RECIPE_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),
-    SI_PA_CHAT_LOOT_MOTIF_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),	
-	SI_PA_CHAT_LOOT_SCRIBING_SCRIPT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),	
+    SI_PA_CHAT_LOOT_MOTIF_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),
+	SI_PA_CHAT_LOOT_SCRIBING_SCRIPT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s can be ", PAC.COLORS.ORANGE,"learned", PAC.COLORS.DEFAULT, "!"}),
     SI_PA_CHAT_LOOT_TRAIT_UNKNOWN = table.concat({PAC.ICONS.OTHERS.UNKNOWN.SMALL, "%s has [", PAC.COLORS.ORANGE,"%s", PAC.COLORS.DEFAULT,"] that can be researched!"}),
     SI_PA_CHAT_LOOT_SET_UNCOLLECTED = table.concat({PAC.ICONS.OTHERS.UNCOLLECTED.SMALL, "%s is missing in set collection!"}),
     SI_PA_CHAT_LOOT_COMPANION_ITEM = table.concat({PAC.ICONS.OTHERS.COMPANION.SMALL, "%s new companion item with ", PAC.COLOR.WHITE:Colorize("%s"), " trait!"}),

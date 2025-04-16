@@ -22,18 +22,18 @@ local function _passesLazyWritCraftingCompatibilityCheck(itemType)
             return false
         end
     end
-
+	
 	if SDC then -- simple daily craft
-
+	
 		if SDC.BankTargetType[CRAFTING_TYPE_ENCHANTING] and (itemType == ITEMTYPE_GLYPH_ARMOR or itemType == ITEMTYPE_GLYPH_JEWELRY or itemType == ITEMTYPE_GLYPH_WEAPON) then
-			return false
+			return false 
 		elseif SDC.BankTargetType[CRAFTING_TYPE_ALCHEMY] and (itemType == ITEMTYPE_POTION or itemType == ITEMTYPE_POISON) then
 			return false
 		elseif SDC.BankTargetType[CRAFTING_TYPE_PROVISIONING] and (itemType == ITEMTYPE_FOOD or itemType == ITEMTYPE_DRINK) then
 			return false
-		end
+		end 
 	end
-
+	
     -- either LazyWritCrafter is not installed/enabled, or the withdraw function is disabled; either way proceed
     return true
 end

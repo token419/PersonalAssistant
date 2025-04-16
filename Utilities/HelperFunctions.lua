@@ -186,41 +186,41 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
         if itemType == expectedItemType then
             if itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
                 if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-                    -- expectedIsKnown responses: (Known == False)  (Unknown == true)
-                    local known = IsBookKnown(itemLink)
-                    if deposit == true then -- Deposit
-                        if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
-                            return true
-                        end
-                    else -- Withdraw
-                        if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
-                            return true
-                        end
-                    end
+                     -- expectedIsKnown responses: (Known == False)  (Unknown == true)
+                     local known = IsBookKnown(itemLink)
+                     if deposit == true then -- Deposit
+                         if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                             return true
+                         end
+                     else -- Withdraw
+                         if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                             return true
+                         end
+                     end
                 else -- Default Behavior
-                    local isBook = IsItemLinkBook(itemLink)
-                    if isBook then
-                        local isKnown = IsBookKnown(itemLink)
-                        if isKnown == expectedIsKnown then return true end
-                    end
+                     local isBook = IsItemLinkBook(itemLink)
+                     if isBook then
+                         local isKnown = IsBookKnown(itemLink)
+                         if isKnown == expectedIsKnown then return true end
+                     end
                 end
             elseif itemType == ITEMTYPE_RECIPE then
                 if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-                    -- expectedIsKnown responses: (Known == False)  (Unknown == true)
-                    local known = IsRecipeKnown(itemLink)
-                    if deposit == true then -- Deposit
-                        if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
-                            return true
-                        end
-                    else -- Withdraw
-                        if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
-                            return true
-                        end
-                    end
-                else -- Default Behavior
-                    local known = IsRecipeKnown(itemLink)
-                    if known == expectedIsKnown then return true end
-                end
+                     -- expectedIsKnown responses: (Known == False)  (Unknown == true)
+                     local known = IsRecipeKnown(itemLink)
+                     if deposit == true then -- Deposit
+                         if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                             return true
+                         end
+                     else -- Withdraw
+                         if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                             return true
+                         end
+                     end
+                 else -- Default Behavior
+                     local known = IsRecipeKnown(itemLink)
+                     if known == expectedIsKnown then return true end
+                 end
             end
         end
         return false
@@ -539,28 +539,150 @@ local function getFormattedItemLink(bagId, slotIndex)
     return zo_strformat(SI_TOOLTIP_ITEM_NAME, (("|H%s:%s|h[%s]|h"):format(LINK_STYLE_BRACKETS, itemData, itemName)))
 end
 
---- currently supports one text and n arguments
----@param text string the text with placeholders to be filled by the varargs
----@vararg any the values to be put in the placeholders of the text
----@return string the formatted text
+--- Formats a string with support for proper UTF-8 character handling
+--- This function ensures that UTF-8 characters are properly counted when formatting strings
+--- @param formatString string The format string with standard Lua formatting specifiers
+--- @param ... any The values to format into the format string
+--- @return string formatedString The formatted string with proper UTF-8 handling
+local function utf8format(formatString, ...)
+    -- Safety check for nil format string
+    if not formatString then
+        return ""
+    end
+
+    local args = { ... }
+    local argCount = select("#", ...)
+
+    -- Handle simple cases directly when no string formatting is needed
+    if argCount == 0 then
+        return formatString
+    end
+
+    -- First try standard string.format with pcall for safety
+    local success, result = pcall(function()
+        return string.format(formatString, unpack(args, 1, argCount))
+    end)
+
+    if success then
+        return result
+    end
+
+    -- If standard formatting fails, try a more robust approach
+
+    -- First, check if we have access to ustring library's format function
+    -- This is the ideal case since ustring handles UTF-8 properly
+    if ustring and ustring.format then
+        local success, result = pcall(function()
+            return ustring.format(formatString, unpack(args, 1, argCount))
+        end)
+
+        if success then
+            return result
+        end
+    end
+
+    -- Fallback with manual specifier processing if ustring.format failed or isn't available
+
+    -- Step 1: Find all format specifiers and their positions
+    local specifiers = {}
+    local pattern = "%%([%d%.%-+# ]*)([cdeEfgGioupsqxX])"
+
+    local pos = 1
+    while pos <= #formatString do
+        local start, finish, flags, specifier = formatString:find(pattern, pos)
+        if not start then break end
+
+        table.insert(specifiers, {
+            start = start,
+            finish = finish,
+            flags = flags,
+            specifier = specifier
+        })
+
+        pos = finish + 1
+    end
+
+    -- Step 2: Replace each specifier with its formatted value
+    local result = formatString
+    local offset = 0
+
+    for i, spec in ipairs(specifiers) do
+        local value = i <= argCount and args[i] or nil
+        local formattedValue
+
+        if spec.specifier == 's' and type(value) == "string" then
+            -- For strings, preserve UTF-8
+            if ustring and ustring.len and ustring.isutf8 and ustring.isutf8(value) then
+                -- For valid UTF-8 strings, use directly
+                formattedValue = value
+            else
+                -- For non-UTF-8 strings or when ustring isn't available
+                formattedValue = tostring(value or "")
+            end
+        elseif spec.specifier == 'd' or spec.specifier == 'i' or spec.specifier == 'u' then
+            -- Integer formatting
+            formattedValue = tostring(math.floor(tonumber(value) or 0))
+        elseif spec.specifier == 'f' or spec.specifier == 'g' or spec.specifier == 'e' or
+               spec.specifier == 'E' or spec.specifier == 'G' then
+            -- Float formatting (could add precision handling based on flags)
+            formattedValue = tostring(tonumber(value) or 0.0)
+        else
+            -- Other format types, just convert to string
+            formattedValue = tostring(value or "")
+        end
+
+        -- Calculate the replacement position accounting for previous replacements
+        local startPos = spec.start + offset
+        local endPos = spec.finish + offset
+
+        -- Replace the format specifier with the value
+        result = result:sub(1, startPos - 1) .. formattedValue .. result:sub(endPos + 1)
+
+        -- Adjust offset for subsequent replacements
+        offset = offset + #formattedValue - (endPos - startPos + 1)
+    end
+
+    return result
+end
+
+--- Formats text with placeholders, with special handling for UTF-8 in Chinese language
+--- @param text string the text with placeholders to be filled by the varargs
+--- @param ... any the values to be put in the placeholders of the text
+--- @return string formattedText the formatted text
 local function getFormattedText(text, ...)
     local args = { ... }
-	local unpackedString = ""
+    local formattedText = ""
 
-	for k,v in pairs(args) do -- workaround attempt for a weird "bad argument #4 to 'string.format' (integer expected, got string)" error with simplified Chinese language
- 	   if type(v) == "number" then
-
-	   else
-	       args[k] = tonumber(v) or v
-	   end
+    -- Safety check for nil text
+    if not text then
+        return ""
     end
 
-    local unpackedString = string.format(text, unpack(args))
+    -- Always use utf8format for Chinese language or when we detect UTF-8 characters
+    if GetCVar("language.2") == "zh" or (ZoGetOfficialGameLanguage and ZoGetOfficialGameLanguage() == OFFICIAL_LANGUAGE_CHINESE_S) or
+       (ustring and ustring.isutf8 and ustring.isutf8(text) and text:find("[\128-\255]")) then
+        -- Use our utf8format function for proper UTF-8 handling
+        formattedText = utf8format(text, unpack(args))
+    else
+        -- Try-catch for standard formatting to handle mismatched specifiers
+        local success, result = pcall(function()
+            return string.format(text, unpack(args))
+        end)
 
-    if unpackedString == "" then
-        unpackedString = text
+        if success then
+            formattedText = result
+        else
+            -- If standard format fails, use our more robust utf8format
+            formattedText = utf8format(text, unpack(args))
+        end
     end
-    return unpackedString
+
+    -- Fall back to the original text if formatting produced an empty string
+    if formattedText == "" then
+        formattedText = text
+    end
+
+    return formattedText
 end
 
 
@@ -712,25 +834,25 @@ local function getItemLinkLearnableStatus(itemLink)
     if isItemLinkForCompanion(itemLink) then return nil end
     if itemType == ITEMTYPE_RECIPE then
         if IsRecipeKnown(itemLink) then
-            return PAC.LEARNABLE.KNOWN
+             return PAC.LEARNABLE.KNOWN
         elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-            if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
-                return PAC.LEARNABLE.UNKNOWN
-            else
-                return PAC.LEARNABLE.OTHERUNKNOWN
-            end
+             if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                 return PAC.LEARNABLE.UNKNOWN
+             else
+                 return PAC.LEARNABLE.OTHERUNKNOWN
+             end
         else
-            return PAC.LEARNABLE.UNKNOWN
+             return PAC.LEARNABLE.UNKNOWN
         end
     elseif itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
         if IsBookKnown(itemLink) then
-            return PAC.LEARNABLE.KNOWN
+             return PAC.LEARNABLE.KNOWN
         elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-            if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
-                return PAC.LEARNABLE.UNKNOWN
-            else
-                return PAC.LEARNABLE.OTHERUNKNOWN
-            end
+             if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                 return PAC.LEARNABLE.UNKNOWN
+             else
+                 return PAC.LEARNABLE.OTHERUNKNOWN
+             end
         else
             return PAC.LEARNABLE.UNKNOWN
         end

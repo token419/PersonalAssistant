@@ -158,12 +158,12 @@ local function _setKnownItemIcon(itemIconControl, iconSize, tooltipText)
 end
 
 -- sets the "otherUnknown" icon to the control, plus tooltip
- local function _setOtherUnknownItemIcon(itemIconControl, iconSize, tooltipText)
+local function _setOtherUnknownItemIcon(itemIconControl, iconSize, tooltipText)
      local red = 1.0     -- 255
      local green = 1.0   -- 255
      local blue = 0.0     -- 0
      _setItemIcon(itemIconControl, PAC.ICONS.OTHERS.OTHERUNKNOWN.PATH, iconSize, tooltipText, red, green, blue, 1)
- end
+end
 
 -- sets the "unknown" icon to the control, plus tooltip
 local function _setUnknownItemIcon(itemIconControl, iconSize, tooltipText)
@@ -263,7 +263,7 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
                 (itemType == ITEMTYPE_RACIAL_STYLE_MOTIF and PALootItemIconsSV.Motifs.showKnownIcon) then
                 _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
 		elseif (( itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY_SCRIPT or itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY) and PALootItemIconsSV.Scribing.showKnownIcon) then
-                _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
+                 _setKnownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_KNOWN))
         elseif ((itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY) and PALootItemIconsSV.ApparelWeapons.showKnownIcon) then
             local itemTraitType = GetItemLinkTraitType(itemLink)
             local traitName = GetString("SI_ITEMTRAITTYPE", itemTraitType)

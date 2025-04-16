@@ -101,7 +101,7 @@ local PABankingMenuDefaults = {
         HolidayWrits = {
             [SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT] = PAC.MOVE.IGNORE,
         },
-		
+
         StylePages = {
             		  [SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE] = {
                        Known = PAC.MOVE.IGNORE,
@@ -242,8 +242,8 @@ local PABankingMenuDefaults = {
             },
 			[204483] = { -- [Cyrodiil Repair Kit]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 0,			
-			}, 
+                bagAmount = 0,
+			},
         },
     },
 

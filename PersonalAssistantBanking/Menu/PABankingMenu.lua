@@ -311,7 +311,7 @@ local function _createPABankingMenu()
         controls = PABAdvancedRecipeSubmenuTable,
         disabledLabel = PABMenuFunctions.isRecipeTransactionMenuDisabled,
     })
-	
+
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_SPECIALIZEDITEMTYPE82),
@@ -383,8 +383,8 @@ local function _createPABankingMenu()
         controls = PABAdvancedTrophiesSurveyReportsSubmenuTable,
         disabledLabel = PABMenuFunctions.isTrophiesSurveyReportsTransactionMenuDisabled,
     })
-	
-    PABankingOptionsTable:insert({ 
+
+    PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_QUESTTYPE18),
         icon = PAC.ICONS.CRAFTBAG.SCRIBING.PATH,
@@ -400,7 +400,7 @@ local function _createPABankingMenu()
         controls = PABAdvancedIntricateItemsSubmenuTable,
         disabledLabel = PABMenuFunctions.isIntricateItemsTransactionMenuDisabled,
     })
-	
+
     PABankingOptionsTable:insert({
         type = "submenu",
         name = GetString(SI_PA_MENU_BANKING_ADVANCED_ORNATE_ITEMS_HEADER),
@@ -1110,14 +1110,14 @@ end
 
 -- =================================================================================================================
 
-local function _createPABAdvancedStylePageSubmenuTable() 
+local function _createPABAdvancedStylePageSubmenuTable()
     for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.STYLE_PAGES) do
         PABAdvancedStylePageSubmenuTable:insert({
             type = "dropdown",
             name = GetString(SI_PA_MENU_BANKING_ADVANCED_KNOWN_STYLE_PAGE),
             choices = PABMenuChoices.itemMoveMode,
             choicesValues = PABMenuChoicesValues.itemMoveMode,
-            getFunc = function() return PABMenuFunctions.getPABankingAdvancedStylePageMoveSetting(true) end, 
+            getFunc = function() return PABMenuFunctions.getPABankingAdvancedStylePageMoveSetting(true) end,
             setFunc = function(value) PABMenuFunctions.setPABankingAdvancedStylePageMoveSetting(value, true) end,
             disabled = PABMenuFunctions.isAdvancedItemsDisabled,
             default = PABMenuDefaults.Advanced.StylePages[specializedItemType].Known,
@@ -1236,7 +1236,7 @@ local function _createPABAdvancedTrophiesTreasureMapsSubmenuTable()
             default = PABMenuDefaults.Advanced.SpecializedItemTypes[specializedItemType],
         })
     end
-	
+
     for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.TROPHIES.TRIBUTE_CLUES) do
         PABAdvancedTrophiesTreasureMapsSubmenuTable:insert({
             type = "dropdown",
@@ -1338,7 +1338,7 @@ end
 
 -- -----------------------------------------------------------------------------------------------------------------
 
-local function _createPABAdvancedScribingSubmenuTable() 
+local function _createPABAdvancedScribingSubmenuTable()
     for _, specializedItemType in pairs(PAC.BANKING_ADVANCED.SPECIALIZED.SCRIBING) do
         PABAdvancedScribingSubmenuTable:insert({
             type = "dropdown",
@@ -1670,10 +1670,10 @@ local function createOptions()
     _createPABAdvancedTrophiesFragmentsSubmenuTable()
     _createPABAdvancedTrophiesSurveyReportsSubmenuTable()
     _createPABAdvancedIntricateItemsSubmenuTable()
-    _createPABAdvancedOrnateItemsSubmenuTable()	
+    _createPABAdvancedOrnateItemsSubmenuTable()
     _createPABAdvancedFurnishingsSubmenuTable()
 	 _createPABAdvancedScribingSubmenuTable()
-	
+
 
     _createPABAvASiegeBallistaSubmenuTable()
     _createPABAvASiegeCatapultSubmenuTable()

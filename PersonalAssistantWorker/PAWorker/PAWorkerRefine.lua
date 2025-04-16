@@ -40,7 +40,7 @@ local function DoubleCheckAndRefineThatMaterial(searchedItemId)
 	
 	for slotIndex = 0, bagSlots do
 	    local itemId = GetItemId(bagId, slotIndex)
-		if itemId == searchedItemId and CanRefineItem(bagId, slotIndex) and (IsESOPlusSubscriber() or GetNumBagFreeSlots(BAG_BACKPACK) >= PA.Loot.SavedVars.InventorySpace.lowInventorySpaceThreshold) then
+		if itemId == searchedItemId and CanRefineItem(bagId, slotIndex) and (IsESOPlusSubscriber() or GetNumBagFreeSlots(BAG_BACKPACK) > 0) then
 		    -- now we can open the refine tab
 		    if IsInGamepadPreferredMode() and SCENE_MANAGER:GetCurrentScene():GetName() ~= "gamepad_smithing_refine" then
 			    SCENE_MANAGER:Show("gamepad_smithing_refine")

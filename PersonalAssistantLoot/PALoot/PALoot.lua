@@ -232,10 +232,10 @@ local function learnNowOrLater(bagId, slotIndex)
 	elseif bagId and slotIndex then
        PAL.itemsToLearn = PAL.itemsToLearn or {}
        local thisItem = {}
-       thisItem.name = GetItemName(bagId, slotIndex)	   
+       thisItem.name = GetItemName(bagId, slotIndex)
        thisItem.bagId = bagId
   	   thisItem.slotIndex = slotIndex
-	   table.insert(PAL.itemsToLearn, thisItem) 
+	   table.insert(PAL.itemsToLearn, thisItem)
        hud:RegisterCallback("StateChange", sceneChange)
 	   EVENT_MANAGER:RegisterForEvent("combatStateChange", EVENT_PLAYER_COMBAT_STATE, combatState)
 
@@ -251,8 +251,8 @@ local function learnNowOrLater(bagId, slotIndex)
 		    zo_callLater(PAL.learnNowOrLater, 1000)
 			table.remove(PAL.itemsToLearn, lastEntry)
 		end
-        	
-    end	
+
+    end
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -269,10 +269,10 @@ local function bindNowOrLater(bagId, slotIndex)
 	elseif bagId and slotIndex then
        PAL.itemsToBind = PAL.itemsToBind or {}
        local thisItem = {}
-       thisItem.name = GetItemName(bagId, slotIndex)	   
+       thisItem.name = GetItemName(bagId, slotIndex)
        thisItem.bagId = bagId
   	   thisItem.slotIndex = slotIndex
-	   table.insert(PAL.itemsToBind, thisItem) 
+	   table.insert(PAL.itemsToBind, thisItem)
        --hud:RegisterCallback("StateChange", sceneChange)
 	   EVENT_MANAGER:RegisterForEvent("combatStateChange", EVENT_PLAYER_COMBAT_STATE, combatState)
 
@@ -288,8 +288,8 @@ local function bindNowOrLater(bagId, slotIndex)
 		    zo_callLater(PAL.bindNowOrLater, 1000)
 			table.remove(PAL.itemsToBind, lastEntry)
 		end
-        	
-    end	
+
+    end
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -305,7 +305,7 @@ local function combineNowOrLater(bagId, slotIndex)
 		    --d(GetItemName(bagId, slotIndex).." can be combined")
 			local collectibleId = GetCombinationCollectibleComponentId(combinationId, 1)
 			if not IsCollectibleUnlocked(collectibleId) then
-				CallSecureProtected("UseItem", bagId, slotIndex) 
+				CallSecureProtected("UseItem", bagId, slotIndex)
 			end
 		 end
 
@@ -314,10 +314,10 @@ local function combineNowOrLater(bagId, slotIndex)
 	elseif bagId and slotIndex then
        PAL.itemsToCombine = PAL.itemsToCombine or {}
        local thisItem = {}
-       thisItem.name = GetItemName(bagId, slotIndex)	   
+       thisItem.name = GetItemName(bagId, slotIndex)
        thisItem.bagId = bagId
   	   thisItem.slotIndex = slotIndex
-	   table.insert(PAL.itemsToCombine, thisItem) 
+	   table.insert(PAL.itemsToCombine, thisItem)
 	   EVENT_MANAGER:RegisterForEvent("combatStateChange", EVENT_PLAYER_COMBAT_STATE, combatState)
 
 	else
@@ -332,8 +332,8 @@ local function combineNowOrLater(bagId, slotIndex)
 		    zo_callLater(PAL.combineNowOrLater, 1000)
 			table.remove(PAL.itemsToCombine, lastEntry)
 		end
-        	
-    end	
+
+    end
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -356,7 +356,7 @@ local function tryToMarkAsJunk(bagId, slotIndex)
     if not CanItemBeMarkedAsJunk(bagId, slotIndex) or IsItemJunk(bagId, slotIndex) then
 	    return
 	end
-	
+
 	local itemValue = GetItemSellValueWithBonuses(bagId, slotIndex)
 	if itemValue then
         SetItemIsJunk(bagId, slotIndex, true)
@@ -383,18 +383,18 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                     if not isRecipeKnown then
 					    if PALootSavedVars.LootEvents.LootRecipes.unknownRecipeMsg then
                            PAL.println(SI_PA_CHAT_LOOT_RECIPE_UNKNOWN, itemLink)
-						end 
+						end
 
 					    if specializedItemType == SPECIALIZED_ITEMTYPE_RECIPE_PROVISIONING_STANDARD_DRINK or specializedItemType == SPECIALIZED_ITEMTYPE_RECIPE_PROVISIONING_STANDARD_FOOD then -- recipe
 						    if PALootSavedVars.LootEvents.LootStyles.autoLearnRecipe then -- auto learn recipe
 							    learnNowOrLater(bagId, slotIndex)
-							end 
+							end
 					    else -- furnishing plan
 						    if PALootSavedVars.LootEvents.LootStyles.autoLearnFurnishingPlan then
 						       learnNowOrLater(bagId, slotIndex)
-							end   
+							end
 						end
-						
+
                     else
                         -- Recipe is already known;
                         PAL.debugln("known recipe looted: %s", itemLink)
@@ -413,11 +413,11 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                         if not isKnown then
 						   if PALootSavedVars.LootEvents.LootStyles.autoLearnMotif then -- auto learn motif
 						      learnNowOrLater(bagId, slotIndex)
-						   end	  
-							
+						   end
+
                            if PALootSavedVars.LootEvents.LootStyles.unknownMotifMsg then
 						      PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
-						   end	  
+						   end
                         else
                             -- Motif is already known; do nothing for now
                                PAL.debugln("known motif looted: %s", itemLink)
@@ -463,7 +463,7 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
                                 local _, setName = GetItemLinkSetInfo(itemLink)
 								if PALootSavedVars.LootEvents.LootApparelWeapons.autoBind then -- auto bind
 								    bindNowOrLater(bagId, slotIndex)
-								elseif PALootSavedVars.LootEvents.LootApparelWeapons.uncollectedSetMsg then 
+								elseif PALootSavedVars.LootEvents.LootApparelWeapons.uncollectedSetMsg then
                                    PAL.println(SI_PA_CHAT_LOOT_SET_UNCOLLECTED, itemLink, setName)
 								end
 
@@ -483,30 +483,30 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 
             -- Style Pages
             elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE then
-                if PALootSavedVars.LootEvents.LootStyles.unknownStylePageMsg or PALootSavedVars.LootEvents.LootStyles.autoLearnStylePage then 
+                if PALootSavedVars.LootEvents.LootStyles.unknownStylePageMsg or PALootSavedVars.LootEvents.LootStyles.autoLearnStylePage then
                     local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
                     local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
                     local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
                     if isValidForPlayer and not isUnlocked then
 					    if PALootSavedVars.LootEvents.LootStyles.unknownStylePageMsg then
                            PAL.println(SI_PA_CHAT_LOOT_MOTIF_UNKNOWN, itemLink)
-						end  
+						end
 
 						if PALootSavedVars.LootEvents.LootStyles.autoLearnStylePage then -- auto learn style page
 						   	learnNowOrLater(bagId, slotIndex)
 						end
-						
+
                     else
                         -- Style Page already known; do nothing for know
                         PAL.debugln("known style page looted: %s", itemLink)
                     end
                 end
-			
-            -- Scribing Scripts 			
+
+            -- Scribing Scripts
 			elseif IsScribingEnabled() and GetItemLinkItemUseType(itemLink) == ITEM_USE_TYPE_CRAFTED_ABILITY_SCRIPT then
                 if PALootSavedVars.LootEvents.LootStyles.unknownScribingScriptMsg or PALootSavedVars.LootEvents.LootStyles.autoLearnScribingScript then
 					local isUnlocked = PAHF.IsScribingScriptKnown(itemLink)
-					
+
 					if isUnlocked then
 					    -- Scribing Script already known
                         PAL.debugln("known scribing script looted: %s", itemLink)
@@ -516,20 +516,20 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 					else
 					    if PALootSavedVars.LootEvents.LootStyles.unknownScribingScriptMsg then
                            PAL.println(SI_PA_CHAT_LOOT_SCRIBING_SCRIPT_UNKNOWN, itemLink)
-						end  
+						end
 
 						if PALootSavedVars.LootEvents.LootStyles.autoLearnScribingScript then -- auto learn scribing script
 						   	learnNowOrLater(bagId, slotIndex)
 						end
-					    
+
 					end
-			    end 
-				
-			-- Scribing Grimoires			
+			    end
+
+			-- Scribing Grimoires
 			elseif IsScribingEnabled() and GetItemLinkItemUseType(itemLink) == ITEM_USE_TYPE_CRAFTED_ABILITY then
                 if PALootSavedVars.LootEvents.LootStyles.unknownScribingScriptMsg or PALootSavedVars.LootEvents.LootStyles.autoLearnScribingScript then
                     local isUnlocked = PAHF.IsScribingGrimoireKnown(itemLink)
-					
+
 					if isUnlocked then
 					    -- Scribing Script already known; do nothing for know
                         PAL.debugln("known scribing grimoire looted: %s", itemLink)
@@ -539,39 +539,39 @@ local function OnInventorySingleSlotUpdate(eventCode, bagId, slotIndex, isNewIte
 					else
 					    if PALootSavedVars.LootEvents.LootStyles.unknownScribingScriptMsg then
                            PAL.println(SI_PA_CHAT_LOOT_SCRIBING_SCRIPT_UNKNOWN, itemLink)
-						end  
+						end
 
 						if PALootSavedVars.LootEvents.LootStyles.autoLearnScribingGrimoire then -- auto learn scribing grimoire
 						   	learnNowOrLater(bagId, slotIndex)
 						end
-					    
+
 					end
 			    end
- 				
-			-- Auto common fish filleting	
-			elseif PALootSavedVars.LootEvents.Fishing.AutoFillet and itemType == ITEMTYPE_FISH  then 
+
+			-- Auto common fish filleting
+			elseif PALootSavedVars.LootEvents.Fishing.AutoFillet and itemType == ITEMTYPE_FISH  then
 			       local itemQuality = GetItemFunctionalQuality(bagId, slotIndex)
-				   
-			       if itemQuality == ITEM_FUNCTIONAL_QUALITY_NORMAL then 
+
+			       if itemQuality == ITEM_FUNCTIONAL_QUALITY_NORMAL then
 				       zo_callLater(function()  CallSecureProtected("UseItem", bagId, slotIndex) end, 1000)
 					   PAL.println(SI_PA_CHAT_LOOT_AUTO_FILLET, itemLink)
 				   end
-				   
-			-- Auto assemble collectibles	    
+
+			-- Auto assemble collectibles
 			elseif PALootSavedVars.LootEvents.Collectibles.AutoCombine and (itemUseType == ITEM_USE_TYPE_COMBINATION or
 			       specializedItemType == SPECIALIZED_ITEMTYPE_TROPHY_RUNEBOX_FRAGMENT or specializedItemType == SPECIALIZED_ITEMTYPE_TROPHY_RECIPE_FRAGMENT or
 				   specializedItemType == SPECIALIZED_ITEMTYPE_TROPHY_UPGRADE_FRAGMENT or specializedItemType == SPECIALIZED_ITEMTYPE_TROPHY_KEY_FRAGMENT  or
 				   specializedItemType == SPECIALIZED_ITEMTYPE_TROPHY_COLLECTIBLE_FRAGMENT)then
-				   
+
                 local combinationId = GetItemCombinationId(bagId, slotIndex) -- always return 0 so this doesn't work
 				local numComponents = GetCombinationNumCollectibleComponents(combinationId)
 				local numUnlockedComponents = GetCombinationNumUnlockedCollectibles(combinationId)
 
-				
+
 				local collectibleId = GetCombinationCollectibleComponentId(combinationId, 1)
                 --d(GetItemName(bagId, slotIndex).." id "..combinationId.." components "..numUnlockedComponents.." / "..numComponents)
 				if not IsCollectibleUnlocked(collectibleId) and combinationId ~= 0 then
-					PAL.combineNowOrLater(bagId, slotIndex) 
+					PAL.combineNowOrLater(bagId, slotIndex)
 				end
             end
 

@@ -175,7 +175,7 @@ local PAWorkerMenuFunctions = {
 	
 	AreRefineSubmenusDisabled = function() return isDisabled({"autoRefineEnabled"}) end,
 	
-	isCheckExtractionDisabled = function() return isDisabled({"autoRefineEnabled"}) end,
+	isCheckExtractionDisabled = function() return isDisabled({"autoRefineEnabled"}) and isDisabled({"autoDeconstructEnabled"}) end,
 	getCheckExtractionSetting = function() return getValue({"checkExtraction"}) end,
 	setCheckExtractionSetting = function(value) setValue(value, {"checkExtraction"}) end,
 	

@@ -652,7 +652,7 @@ local PABankingMenuFunctions = {
 
     getAdvancedLearnableItemTypeMoveSetting = getPABankingAdvancedLearnableItemTypeMoveSetting,
     setAdvancedLearnableItemTypeMoveSetting = setPABankingAdvancedLearnableItemTypeMoveSetting,
-	
+
 	getPABankingAdvancedStylePageMoveSetting = getPABankingAdvancedStylePageMoveSetting;
 	setPABankingAdvancedStylePageMoveSetting = setPABankingAdvancedStylePageMoveSetting,
 

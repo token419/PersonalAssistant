@@ -69,8 +69,8 @@ local PABStrings = {
     SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK = "持有数量",
     SI_PA_MENU_BANKING_ANY_KEEPINBACKPACK_T = "决定该物品在银行和背包中的数量",
 
-    SI_PA_MENU_BANKING_ANY_MINTOKEEP_T = "角色背包中最少拥有%s;当不足时从银行取出差额",
-    SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T = "角色背包中最多拥有%s;超过的数量将存入银行",
+    SI_PA_MENU_BANKING_ANY_MINTOKEEP_T = "角色背包中最少拥有 %s; 当不足时从银行取出差额",
+    SI_PA_MENU_BANKING_ANY_MAXTOKEEP_T = "角色背包中最多拥有 %s; 超过的数量将存入银行",
 
     SI_PA_MENU_BANKING_ANY_GLOBAL_MOVEMODE_W = "该操作无法撤销，所有选中的数据将无法恢复",
 
@@ -95,24 +95,28 @@ local PABStrings = {
     -- =================================================================================================================
     -- == OTHER STRINGS FOR MENU == --
     -- -----------------------------------------------------------------------------------------------------------------
+	
+	-- THERE IS A PROBLEM WITH CHINESE AND STRING MANIPULATION IN LUA SO I COMMENTED THAT PART OF THE TRANSLATION
+	
+	
     -- PABanking Add Custom Rule Description --
-    SI_PA_DIALOG_BANKING_BANK_EXACTLY_PRE = "%s的数量应当为%d",
-    SI_PA_DIALOG_BANKING_BANK_LESSTHANOREQUAL_PRE = "%s最多数量为%d",
-    SI_PA_DIALOG_BANKING_BANK_GREATERTHANOREQUAL_PRE = "%s最小数量为%d",
-    SI_PA_DIALOG_BANKING_BANK_EXACTLY_NOTHING = "%s的数量>%d=>无操作",
-    SI_PA_DIALOG_BANKING_BANK_EXACTLY_DEPOSIT = "%s的数量>%d=>将物品转移至%s直到数量为%d",
-    SI_PA_DIALOG_BANKING_BANK_FROM_TO_NOTHING = "%s的数量> %d - %d=> 无操作",
-    SI_PA_DIALOG_BANKING_BANK_FROM_TO_DEPOSIT = "%s的数量> %d - %d=> 将物品转移至%s直到数量为%d",
-    SI_PA_DIALOG_BANKING_BANK_FROM_TO_WITHDRAW = "%s的数量> %d - %d=> 将物品转移出%s直到数量为%d",
+    SI_PA_DIALOG_BANKING_BANK_EXACTLY_PRE = "%s 的数量应当为 %d",
+    SI_PA_DIALOG_BANKING_BANK_LESSTHANOREQUAL_PRE = "%s 最多数量为 %d",
+    SI_PA_DIALOG_BANKING_BANK_GREATERTHANOREQUAL_PRE = "%s 最小数量为 %d",
+    SI_PA_DIALOG_BANKING_BANK_EXACTLY_NOTHING = "%s 的数量 > %d => 无操作",
+    SI_PA_DIALOG_BANKING_BANK_EXACTLY_DEPOSIT = "%s 的数量 > %d => 将物品转移至 %s 直到数量为 %d",
+    SI_PA_DIALOG_BANKING_BANK_FROM_TO_NOTHING = "%s 的数量 > %d - %d => 无操作",
+    SI_PA_DIALOG_BANKING_BANK_FROM_TO_DEPOSIT = "%s 的数量 > %d - %d => 将物品转移至 %s 直到数量为 %d",
+    SI_PA_DIALOG_BANKING_BANK_FROM_TO_WITHDRAW = "%s 的数量 > %d - %d => 将物品转移出 %s 直到数量为 %d",
 
-    SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_PRE = "%s的数量应当为%d",
-    SI_PA_DIALOG_BANKING_BACKPACK_LESSTHANOREQUAL_PRE = "%s最多数量为%d",
-    SI_PA_DIALOG_BANKING_BACKPACK_GREATERTHANOREQUAL_PRE = "%s最小数量为%d",
-    SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_NOTHING = "%s的数量>%d=>无操作",
-    SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_DEPOSIT = "%s的数量>%d=>将物品转移至%s直到数量为%d",
-    SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_NOTHING = "%s的数量> %d - %d=> 无操作",
-    SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_DEPOSIT = "%s的数量> %d - %d=> 将物品转移至%s直到数量为%d",
-    SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_WITHDRAW = "%s的数量> %d - %d=> 将物品转移出%s直到数量为%d",
+    SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_PRE = "%s 的数量应当为 %d",
+    SI_PA_DIALOG_BANKING_BACKPACK_LESSTHANOREQUAL_PRE = "%s 最多数量为 %d",
+    SI_PA_DIALOG_BANKING_BACKPACK_GREATERTHANOREQUAL_PRE = "%s 最小数量为 %d",
+    SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_NOTHING = "%s 的数量 > %d => 无操作",
+    SI_PA_DIALOG_BANKING_BACKPACK_EXACTLY_DEPOSIT = "%s 的数量 > %d => 将物品转移至 %s 直到数量为 %d",
+    SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_NOTHING = "%s 的数量 > %d - %d => 无操作",
+    SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_DEPOSIT = "%s 的数量 > %d - %d => 将物品转移至 %s 直到数量为 %d",
+    SI_PA_DIALOG_BANKING_BACKPACK_FROM_TO_WITHDRAW = "%s 的数量 > %d - %d => 将物品转移出 %s 直到数量为 %d",
 
     SI_PA_DIALOG_BANKING_EXPLANATION = "如果账户拥有 . . .",
 
@@ -123,24 +127,24 @@ local PABStrings = {
     -- PABanking --
     SI_PA_CHAT_BANKING_FINISHED = "物品转移完毕",
 
-    SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE = "已取出%s",
-    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE = "已取出%s / %s(银行无剩余)",
-    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET = "已取出%s / %s %s(背包已满)",
+    SI_PA_CHAT_BANKING_WITHDRAWAL_COMPLETE = "已取出 %s",
+    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_SOURCE = "已取出 %s / %s (银行无剩余)",
+    SI_PA_CHAT_BANKING_WITHDRAWAL_PARTIAL_TARGET = "已取出 %s / %s %s(背包已满)",
 
-    SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE = "已存入%s",
-    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE = "已存入%s / %s(角色无剩余)",
-    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET = "已存入%s / %s(背包已满)",
+    SI_PA_CHAT_BANKING_DEPOSIT_COMPLETE = "已存入 %s",
+    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_SOURCE = "已存入 %s / %s(角色无剩余)",
+    SI_PA_CHAT_BANKING_DEPOSIT_PARTIAL_TARGET = "已存入 %s / %s(背包已满)",
 
     SI_PA_CHAT_BANKING_ITEMS_MOVED_COMPLETE = "%d x %s 已移动到 %s",
     SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_OUTOFSPACE = "无法将 %s 移动到 %s. 空间不足!",
     SI_PA_CHAT_BANKING_ITEMS_NOT_MOVED_BANKCLOSED = "无法将 %s 移动到 %s. 界面已关闭!",
     SI_PA_CHAT_BANKING_ITEMS_SKIPPED_LWC = "未防止干扰Dolgubon's Lazy Writ Crafter，部分物品未存入",
 
-    SI_PA_CHAT_BANKING_RULES_ADDED = table.concat({"%s相关规则", PAC.COLOR.ORANGE:Colorize("已添加"), "!"}),
-    SI_PA_CHAT_BANKING_RULES_UPDATED = table.concat({"%s相关规则", PAC.COLOR.ORANGE:Colorize("已更新"), "!"}),
-    SI_PA_CHAT_BANKING_RULES_DELETED = table.concat({"%s相关规则", PAC.COLOR.ORANGE:Colorize("已删除"), "!"}),
-    SI_PA_CHAT_BANKING_RULES_ENABLED = table.concat({"%s相关规则", PAC.COLOR.ORANGE:Colorize("已启用"), "!"}),
-    SI_PA_CHAT_BANKING_RULES_DISABLED = table.concat({"%s相关规则", PAC.COLOR.ORANGE:Colorize("已禁止"), "!"}),
+    SI_PA_CHAT_BANKING_RULES_ADDED = table.concat({"%s 相关规则", PAC.COLOR.ORANGE:Colorize("已添加"), "!"}),
+    SI_PA_CHAT_BANKING_RULES_UPDATED = table.concat({"%s 相关规则", PAC.COLOR.ORANGE:Colorize("已更新"), "!"}),
+    SI_PA_CHAT_BANKING_RULES_DELETED = table.concat({"%s 相关规则", PAC.COLOR.ORANGE:Colorize("已删除"), "!"}),
+    SI_PA_CHAT_BANKING_RULES_ENABLED = table.concat({"%s 相关规则", PAC.COLOR.ORANGE:Colorize("已启用"), "!"}),
+    SI_PA_CHAT_BANKING_RULES_DISABLED = table.concat({"%s 相关规则", PAC.COLOR.ORANGE:Colorize("已禁止"), "!"}),
 
 
     -- =================================================================================================================

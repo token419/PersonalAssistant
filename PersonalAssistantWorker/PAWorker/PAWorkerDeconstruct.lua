@@ -218,7 +218,7 @@ local function FilterThisBagAndAddToMessage(bagId)
     PAW.hasDeconstructedSomething = false
 	local bagSlots = GetBagSize(bagId)
 	for slotIndex = 0, bagSlots do
-		if CanDeconstructItem(bagId, slotIndex) and (IsESOPlusSubscriber() or GetNumBagFreeSlots(BAG_BACKPACK) >= PA.Loot.SavedVars.InventorySpace.lowInventorySpaceThreshold) then
+		if CanDeconstructItem(bagId, slotIndex) and (IsESOPlusSubscriber() or GetNumBagFreeSlots(BAG_BACKPACK) > 0) then
  			local itemLink = GetItemLink(bagId, slotIndex, LINK_STYLE_BRACKETS)
 			if AddItemToDeconstructMessage(bagId, slotIndex, 1) then
 			   PAW.hasDeconstructedSomething = true 
@@ -292,10 +292,11 @@ local function HasAnyCraftingWrit()
     if not CRAFT_ADVISOR_MANAGER:HasActiveWrits() then return false end
 	local anyFound = false 
     
+
 	local craftingStation = PAW.currentCraftingStation
 	for i = 1 , GetNumJournalQuests() do
 	    -- Is this a crafting quest (writ)?
-		--if GetJournalQuestType(i) == QUEST_TYPE_CRAFTING then 
+		if GetJournalQuestType(i) == QUEST_TYPE_CRAFTING then 
 		    local CraftType
 			-- Is this a master writ or a regular writ? 
 		    if GetQuestConditionMasterWritInfo(i, 1, 1) then
@@ -303,14 +304,15 @@ local function HasAnyCraftingWrit()
 				 
 			else
                  _, _, CraftType = GetQuestConditionItemInfo(i, 1, 1)
-				 if CraftType == 0 then
+				 if not CraftType or CraftType == 0 then
 				     _, _, CraftType = GetQuestConditionItemInfo(i, 1, 2)
 				 end
-				 if CraftType == 0 then
+				 if not CraftType or CraftType == 0 then
 				     _, _, CraftType = GetQuestConditionItemInfo(i, 1, 3)
 				 end
 			end
-
+            
+			if not CraftType then CraftType = 0 end
 			--d("crafting station: "..craftingStation.." "..CraftType)
 			
 			-- Are we at the right crafting station for this quest? 
@@ -337,9 +339,9 @@ local function HasAnyCraftingWrit()
 			       anyFound = true
 			   end
 			end
-		--end
+		end
 	end
-	
+
 	return anyFound
 end
 
