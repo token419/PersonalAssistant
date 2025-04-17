@@ -183,7 +183,7 @@ end
 ---@return fun(itemData: table) a comparator function that only returns item that match the complex list and pass the junk-test
 local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJunk, skipItemsWithCustomRule, skipFcoisLocked, deposit) --token419
     local function _isItemOfItemTypeAndKnowledge(itemType, specializedItemType, itemLink, expectedItemType, expectedIsKnown)
-        if itemType == expectedItemType then
+        if itemType == expectedItemType or specializedItemType == expectedItemType then
             if itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
                 if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
                      local known = IsBookKnown(itemLink)
@@ -918,6 +918,58 @@ local function getItemLinkLearnableStatus(itemLink)
         else
             return PAC.LEARNABLE.UNKNOWN
         end
+	-- Scribing Grimoires
+	elseif itemType == ITEMTYPE_CRAFTED_ABILITY then
+        if IsScribingGrimoireKnown(itemLink) then
+             return PAC.LEARNABLE.KNOWN
+        elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+             if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                 return PAC.LEARNABLE.UNKNOWN
+             else
+                 return PAC.LEARNABLE.OTHERUNKNOWN
+             end
+        else
+            return PAC.LEARNABLE.UNKNOWN
+        end
+	-- Scribing Focus Scripts
+	elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_PRIMARY then
+        if IsScribingScriptKnown(itemLink) then
+             return PAC.LEARNABLE.KNOWN
+        elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+             if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                 return PAC.LEARNABLE.UNKNOWN
+             else
+                 return PAC.LEARNABLE.OTHERUNKNOWN
+             end
+        else
+            return PAC.LEARNABLE.UNKNOWN
+        end
+	-- Scribing Signature Scripts
+	elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_SECONDARY then
+        if IsScribingScriptKnown(itemLink) then
+             return PAC.LEARNABLE.KNOWN
+        elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+             if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                 return PAC.LEARNABLE.UNKNOWN
+             else
+                 return PAC.LEARNABLE.OTHERUNKNOWN
+             end
+        else
+            return PAC.LEARNABLE.UNKNOWN
+        end
+	-- Scribing Affix Scripts
+	elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_TERTIARY then
+        if IsScribingScriptKnown(itemLink) then
+             return PAC.LEARNABLE.KNOWN
+        elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+             if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                 return PAC.LEARNABLE.UNKNOWN
+             else
+                 return PAC.LEARNABLE.OTHERUNKNOWN
+             end
+        else
+            return PAC.LEARNABLE.UNKNOWN
+        end
     elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
         local itemTraitType = GetItemLinkTraitType(itemLink)
         -- only check for the research status if it has a traitType and if it is not Ornate or Intricate
@@ -938,33 +990,6 @@ local function getItemLinkLearnableStatus(itemLink)
                 if isUnlocked then return PAC.LEARNABLE.KNOWN end
                 return PAC.LEARNABLE.UNKNOWN
             end
-        end
-	-- Scribing Scripts
-	elseif itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY_SCRIPT then
-        if IsScribingScriptKnown(itemLink) then
-             return PAC.LEARNABLE.KNOWN
-        elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-             if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
-                 return PAC.LEARNABLE.UNKNOWN
-             else
-                 return PAC.LEARNABLE.OTHERUNKNOWN
-             end
-        else
-            return PAC.LEARNABLE.UNKNOWN
-        end
-
-	-- Scribing Grimoires
-	elseif itemUseType == ITEM_USE_TYPE_CRAFTED_ABILITY then
-        if IsScribingGrimoireKnown(itemLink) then
-             return PAC.LEARNABLE.KNOWN
-        elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-             if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
-                 return PAC.LEARNABLE.UNKNOWN
-             else
-                 return PAC.LEARNABLE.OTHERUNKNOWN
-             end
-        else
-            return PAC.LEARNABLE.UNKNOWN
         end
     end
     -- itemLink is neither known, nor unknown (not learnable or researchable)
