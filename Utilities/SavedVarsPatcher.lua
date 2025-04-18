@@ -53,7 +53,7 @@ local function _getActiveAddonSavedVarsVersion()
     if PASavedVars.Repair then PARversion = tonumber(PASavedVars.Repair.savedVarsVersion) end
 	if PASavedVars.Consume then PACOversion = tonumber(PASavedVars.Consume.savedVarsVersion) end
 	if PASavedVars.Worker then PAWversion = tonumber(PASavedVars.Worker.savedVarsVersion) end
-    return PAGversion, PABversion, PAIVersion, PAJversion, PALversion, PARversion, PACOversion, PAWversion 
+    return PAGversion, PABversion, PAIVersion, PAJversion, PALversion, PARversion, PACOversion, PAWversion
 end
 
 local function _getIsPatchNeededInfo(targetSVV)
@@ -566,6 +566,24 @@ local function _applyPatch_2_5_10(savedVarsVersion, _, _, _, patchPAJ, _, _)
     end
 end
 
+local function _applyPatch_2_5_5(savedVarsVersion, _, patchPAB, _, _, _, _)
+    if patchPAB and PA.Banking then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, PASavedVars.General.profileCounter do
+            if istable(PASavedVars.Banking[profileNo]["Advanced"]["SpecializedItemTypes"][3250]) then
+                PASavedVars.Banking[profileNo]["Advanced"]["SpecializedItemTypes"][3250] = nil
+            end
+            if istable(PASavedVars.Banking[profileNo]["Advanced"]["SpecializedItemTypes"][3251]) then
+                PASavedVars.Banking[profileNo]["Advanced"]["SpecializedItemTypes"][3251] = nil
+            end
+            if istable(PASavedVars.Banking[profileNo]["Advanced"]["SpecializedItemTypes"][3252]) then
+                PASavedVars.Banking[profileNo]["Advanced"]["SpecializedItemTypes"][3252] = nil
+            end
+        end
+        _updateSavedVarsVersion(savedVarsVersion, nil, patchPAB, nil, nil, nil, nil)
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function applyLegacyPatchIfNeeded()
@@ -631,6 +649,9 @@ local function applyLegacyPatchIfNeeded()
 
     -- Patch 2.5.10     March 18, 2021
     _applyPatch_2_5_10(_getIsPatchNeededInfo(020510))
+
+    -- Patch 2025.04.08     April 17, 2025
+    _applyPatch_2_5_10(_getIsPatchNeededInfo(20250207))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
