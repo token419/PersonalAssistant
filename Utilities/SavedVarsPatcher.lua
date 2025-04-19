@@ -586,6 +586,26 @@ local function _applyPatch_2025_04_18(savedVarsVersion, _, patchPAB, _, _, _, _)
     end
 end
 
+local function _applyPatch_2025_04_19(savedVarsVersion, _, patchPAB, _, _, _, _)
+    if patchPAB and PA.Banking then
+        local PASavedVars = PA.SavedVars
+        for profileNo = 1, 42 do
+            if PASavedVars.Banking[profileNo] then
+                if PASavedVars.Banking[profileNo]["Advanced"]["SpecializedItemTypes"][3250] ~= nil then
+                    PASavedVars.Banking[profileNo]["Advanced"]["SpecializedItemTypes"][3250] = nil
+                end
+                if PASavedVars.Banking[profileNo]["Advanced"]["SpecializedItemTypes"][3251] ~= nil then
+                    PASavedVars.Banking[profileNo]["Advanced"]["SpecializedItemTypes"][3251] = nil
+                end
+                if PASavedVars.Banking[profileNo]["Advanced"]["SpecializedItemTypes"][3252] ~= nil then
+                    PASavedVars.Banking[profileNo]["Advanced"]["SpecializedItemTypes"][3252] = nil
+                end
+            end
+        end
+        _updateSavedVarsVersion(savedVarsVersion, nil, patchPAB, nil, nil, nil, nil)
+    end
+end
+
 -- ---------------------------------------------------------------------------------------------------------------------
 
 local function applyLegacyPatchIfNeeded()
@@ -654,6 +674,9 @@ local function applyLegacyPatchIfNeeded()
 
     -- Patch 2025.04.18-2     April 18, 2025
     _applyPatch_2025_04_18(_getIsPatchNeededInfo(20250418))
+
+    -- Patch 2025.04.18-2     April 19, 2025
+    _applyPatch_2025_04_19(_getIsPatchNeededInfo(20250419))
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
