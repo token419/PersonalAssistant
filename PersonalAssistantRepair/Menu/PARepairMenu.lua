@@ -12,7 +12,7 @@ local PAHF = PA.HelperFunctions
 -- =====================================================================================================================
 
 -- Create the LibAddonMenu2 object
-PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
+PA.LAM2 = PA.LAM2 or LibAddonMenu2
 
 local PARepairPanelData = {
     type = "panel",

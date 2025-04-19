@@ -33,25 +33,25 @@ end
 local function IsScribingScriptKnown(itemLink)
     local PALCK = PA.Libs.CharacterKnowledge
 	if PALCK.IsInstalled() and PALCK.IsEnabled() then
-		 return PALCK.IsKnown(itemLink)
-	else
+		 return PALCK.IsKnown(itemLink) 
+	else 
 		 local craftedAbilityScriptId = GetItemLinkItemUseReferenceId(itemLink) or 0
 		 local craftedAbilityScriptData = SCRIBING_DATA_MANAGER:GetCraftedAbilityScriptData(craftedAbilityScriptId)
 		 local isUnlocked = craftedAbilityScriptData:IsUnlocked()
 		 return isUnlocked
-	end
-end
+	end		 
+end 
 
 local function IsScribingGrimoireKnown(itemLink)
     local PALCK = PA.Libs.CharacterKnowledge
 	if PALCK.IsInstalled() and PALCK.IsEnabled() then
-		 return PALCK.IsKnown(itemLink)
-	else
+		 return PALCK.IsKnown(itemLink) 
+	else 
 		 local craftedAbilityId = GetItemLinkItemUseReferenceId(itemLink) or 0
 		 local craftedAbilityData = SCRIBING_DATA_MANAGER:GetCraftedAbilityData(craftedAbilityId)
 		 local isUnlocked = craftedAbilityData:IsUnlocked()
 		 return isUnlocked
-	end
+	end		
 end
 
 -- =================================================================================================================
@@ -182,7 +182,7 @@ end
 ---@param deposit boolean whether this is a deposit or withdraw comparison
 ---@return fun(itemData: table) a comparator function that only returns item that match the complex list and pass the junk-test
 local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJunk, skipItemsWithCustomRule, skipFcoisLocked, deposit) --token419
-    local function _isItemOfItemTypeAndKnowledge(itemType, specializedItemType, itemLink, expectedItemType, expectedIsKnown)
+     local function _isItemOfItemTypeAndKnowledge(itemType, specializedItemType, itemLink, expectedItemType, expectedIsKnown)
         if itemType == expectedItemType or specializedItemType == expectedItemType then
             if itemType == ITEMTYPE_RACIAL_STYLE_MOTIF then
                 if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
@@ -220,69 +220,69 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
                      if known == expectedIsKnown then return true end
                  end
             elseif itemType == ITEMTYPE_CRAFTED_ABILITY then
-                if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-                     local known = IsScribingGrimoireKnown(itemLink)
-                     if deposit == true then -- Deposit
-                         if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
-                             return true
-                         end
-                     else -- Withdraw
-                         if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
-                             return true
-                         end
-                     end
-                 else -- Default Behavior
-                     local known = IsScribingScriptKnown(itemLink)
-                     if known == expectedIsKnown then return true end
-                 end
-            elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_PRIMARY then
-                if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-                     local known = IsScribingScriptKnown(itemLink)
-                     if deposit == true then -- Deposit
-                         if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
-                             return true
-                         end
-                     else -- Withdraw
-                         if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
-                             return true
-                         end
-                     end
-                 else -- Default Behavior
-                     local known = IsScribingScriptKnown(itemLink)
-                     if known == expectedIsKnown then return true end
-                 end
-            elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_SECONDARY then
-                if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-                     local known = IsScribingScriptKnown(itemLink)
-                     if deposit == true then -- Deposit
-                         if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
-                             return true
-                         end
-                     else -- Withdraw
-                         if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
-                             return true
-                         end
-                     end
-                 else -- Default Behavior
-                     local known = IsScribingScriptKnown(itemLink)
-                     if known == expectedIsKnown then return true end
-                 end
-            elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_TERTIARY then
-                if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-                     local known = IsScribingScriptKnown(itemLink)
-                     if deposit == true then -- Deposit
-                         if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
-                             return true
-                         end
-                     else -- Withdraw
-                         if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
-                             return true
-                         end
-                     end
-                 else -- Default Behavior
-                     local known = IsScribingScriptKnown(itemLink)
-                     if known == expectedIsKnown then return true end
-                 end
+                 if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                      local known = IsScribingGrimoireKnown(itemLink)
+                      if deposit == true then -- Deposit
+                          if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                              return true
+                          end
+                      else -- Withdraw
+                          if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                              return true
+                          end
+                      end
+                  else -- Default Behavior
+                      local known = IsScribingScriptKnown(itemLink)
+                      if known == expectedIsKnown then return true end
+                  end
+             elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_PRIMARY then
+                 if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                      local known = IsScribingScriptKnown(itemLink)
+                      if deposit == true then -- Deposit
+                          if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                              return true
+                          end
+                      else -- Withdraw
+                          if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                              return true
+                          end
+                      end
+                  else -- Default Behavior
+                      local known = IsScribingScriptKnown(itemLink)
+                      if known == expectedIsKnown then return true end
+                  end
+             elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_SECONDARY then
+                 if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                      local known = IsScribingScriptKnown(itemLink)
+                      if deposit == true then -- Deposit
+                          if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                              return true
+                          end
+                      else -- Withdraw
+                          if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                              return true
+                          end
+                      end
+                  else -- Default Behavior
+                      local known = IsScribingScriptKnown(itemLink)
+                      if known == expectedIsKnown then return true end
+                  end
+             elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_TERTIARY then
+                 if PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+                      local known = IsScribingScriptKnown(itemLink)
+                      if deposit == true then -- Deposit
+                          if known == expectedIsKnown or known ~= expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                              return true
+                          end
+                      else -- Withdraw
+                          if known == expectedIsKnown and PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) ~= expectedIsKnown then
+                              return true
+                          end
+                      end
+                  else -- Default Behavior
+                      local known = IsScribingScriptKnown(itemLink)
+                      if known == expectedIsKnown then return true end
+                  end
             end
         end
         return false
@@ -341,7 +341,7 @@ local function getCombinedItemTypeSpecializedComparator(combinedLists, excludeJu
         end
         if specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE then -- hereherehere
             for _, listSpecializedItemType in pairs(combinedLists.knownStylePages) do
-                if listSpecializedItemType == itemData.specializedItemType then
+                if listSpecializedItemType == itemData.specializedItemType then 
 				   if PA.HelperFunctions.getItemLinkLearnableStatus(itemData.itemLink) == PAC.LEARNABLE.KNOWN then
 				      return true
 				   end
@@ -611,67 +611,67 @@ local function utf8format(formatString, ...)
     if not formatString then
         return ""
     end
-
+    
     local args = { ... }
     local argCount = select("#", ...)
-
+    
     -- Handle simple cases directly when no string formatting is needed
     if argCount == 0 then
         return formatString
     end
-
+    
     -- First try standard string.format with pcall for safety
     local success, result = pcall(function()
         return string.format(formatString, unpack(args, 1, argCount))
     end)
-
+    
     if success then
         return result
     end
-
+    
     -- If standard formatting fails, try a more robust approach
-
+    
     -- First, check if we have access to ustring library's format function
     -- This is the ideal case since ustring handles UTF-8 properly
     if ustring and ustring.format then
         local success, result = pcall(function()
             return ustring.format(formatString, unpack(args, 1, argCount))
         end)
-
+        
         if success then
             return result
         end
     end
-
+    
     -- Fallback with manual specifier processing if ustring.format failed or isn't available
-
+    
     -- Step 1: Find all format specifiers and their positions
     local specifiers = {}
     local pattern = "%%([%d%.%-+# ]*)([cdeEfgGioupsqxX])"
-
+    
     local pos = 1
     while pos <= #formatString do
         local start, finish, flags, specifier = formatString:find(pattern, pos)
         if not start then break end
-
+        
         table.insert(specifiers, {
             start = start,
             finish = finish,
             flags = flags,
             specifier = specifier
         })
-
+        
         pos = finish + 1
     end
-
+    
     -- Step 2: Replace each specifier with its formatted value
     local result = formatString
     local offset = 0
-
+    
     for i, spec in ipairs(specifiers) do
         local value = i <= argCount and args[i] or nil
         local formattedValue
-
+        
         if spec.specifier == 's' and type(value) == "string" then
             -- For strings, preserve UTF-8
             if ustring and ustring.len and ustring.isutf8 and ustring.isutf8(value) then
@@ -692,18 +692,18 @@ local function utf8format(formatString, ...)
             -- Other format types, just convert to string
             formattedValue = tostring(value or "")
         end
-
+        
         -- Calculate the replacement position accounting for previous replacements
         local startPos = spec.start + offset
         local endPos = spec.finish + offset
-
+        
         -- Replace the format specifier with the value
         result = result:sub(1, startPos - 1) .. formattedValue .. result:sub(endPos + 1)
-
+        
         -- Adjust offset for subsequent replacements
         offset = offset + #formattedValue - (endPos - startPos + 1)
     end
-
+    
     return result
 end
 
@@ -714,12 +714,12 @@ end
 local function getFormattedText(text, ...)
     local args = { ... }
     local formattedText = ""
-
+    
     -- Safety check for nil text
     if not text then
         return ""
     end
-
+    
     -- Always use utf8format for Chinese language or when we detect UTF-8 characters
     if GetCVar("language.2") == "zh" or (ZoGetOfficialGameLanguage and ZoGetOfficialGameLanguage() == OFFICIAL_LANGUAGE_CHINESE_S) or
        (ustring and ustring.isutf8 and ustring.isutf8(text) and text:find("[\128-\255]")) then
@@ -727,10 +727,10 @@ local function getFormattedText(text, ...)
         formattedText = utf8format(text, unpack(args))
     else
         -- Try-catch for standard formatting to handle mismatched specifiers
-        local success, result = pcall(function()
-            return string.format(text, unpack(args))
+        local success, result = pcall(function() 
+            return string.format(text, unpack(args)) 
         end)
-
+        
         if success then
             formattedText = result
         else
@@ -738,12 +738,12 @@ local function getFormattedText(text, ...)
             formattedText = utf8format(text, unpack(args))
         end
     end
-
+    
     -- Fall back to the original text if formatting produced an empty string
     if formattedText == "" then
         formattedText = text
     end
-
+    
     return formattedText
 end
 
@@ -888,11 +888,11 @@ end
 --- Checks the itemLink if it is known (recipes and motifs), researched (item traits), or already added to collection (style pages and containers)
 ---@param itemLink string the itemLink to be checked
 ---@return string Constants.LEARNABLE.KNOWN, Constants.LEARNABLE.KNOWN or nil if there is no known/unknown status
-local function getItemLinkLearnableStatus(itemLink)
+local function getItemLinkLearnableStatus(itemLink) 
     local itemType, specializedItemType = GetItemLinkItemType(itemLink)
     local itemFilterType = GetItemLinkFilterTypeInfo(itemLink)
 	local itemUseType = GetItemLinkItemUseType(itemLink)
-
+	
     if isItemLinkForCompanion(itemLink) then return nil end
     if itemType == ITEMTYPE_RECIPE then
         if IsRecipeKnown(itemLink) then
@@ -918,79 +918,80 @@ local function getItemLinkLearnableStatus(itemLink)
         else
             return PAC.LEARNABLE.UNKNOWN
         end
-	-- Scribing Grimoires
-	elseif itemType == ITEMTYPE_CRAFTED_ABILITY then
-        if IsScribingGrimoireKnown(itemLink) then
-             return PAC.LEARNABLE.KNOWN
-        elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-             if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
-                 return PAC.LEARNABLE.UNKNOWN
-             else
-                 return PAC.LEARNABLE.OTHERUNKNOWN
-             end
-        else
-            return PAC.LEARNABLE.UNKNOWN
+    -- Scribing Grimoires
+ 	elseif itemType == ITEMTYPE_CRAFTED_ABILITY then
+         if IsScribingGrimoireKnown(itemLink) then
+              return PAC.LEARNABLE.KNOWN
+         elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+              if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                  return PAC.LEARNABLE.UNKNOWN
+              else
+                  return PAC.LEARNABLE.OTHERUNKNOWN
+              end
+         else
+             return PAC.LEARNABLE.UNKNOWN
         end
 	-- Scribing Focus Scripts
-	elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_PRIMARY then
-        if IsScribingScriptKnown(itemLink) then
-             return PAC.LEARNABLE.KNOWN
-        elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-             if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
-                 return PAC.LEARNABLE.UNKNOWN
-             else
-                 return PAC.LEARNABLE.OTHERUNKNOWN
-             end
-        else
-            return PAC.LEARNABLE.UNKNOWN
+ 	elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_PRIMARY then
+         if IsScribingScriptKnown(itemLink) then
+              return PAC.LEARNABLE.KNOWN
+         elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+              if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                  return PAC.LEARNABLE.UNKNOWN
+              else
+                  return PAC.LEARNABLE.OTHERUNKNOWN
+              end
+         else
+             return PAC.LEARNABLE.UNKNOWN
         end
-	-- Scribing Signature Scripts
-	elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_SECONDARY then
-        if IsScribingScriptKnown(itemLink) then
-             return PAC.LEARNABLE.KNOWN
-        elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-             if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
-                 return PAC.LEARNABLE.UNKNOWN
-             else
-                 return PAC.LEARNABLE.OTHERUNKNOWN
-             end
-        else
-            return PAC.LEARNABLE.UNKNOWN
-        end
-	-- Scribing Affix Scripts
-	elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_TERTIARY then
-        if IsScribingScriptKnown(itemLink) then
-             return PAC.LEARNABLE.KNOWN
-        elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
-             if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
-                 return PAC.LEARNABLE.UNKNOWN
-             else
-                 return PAC.LEARNABLE.OTHERUNKNOWN
-             end
-        else
-            return PAC.LEARNABLE.UNKNOWN
-        end
+    -- Scribing Signature Scripts
+ 	elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_SECONDARY then
+         if IsScribingScriptKnown(itemLink) then
+              return PAC.LEARNABLE.KNOWN
+         elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+              if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                  return PAC.LEARNABLE.UNKNOWN
+              else
+                  return PAC.LEARNABLE.OTHERUNKNOWN
+              end
+         else
+             return PAC.LEARNABLE.UNKNOWN
+         end
+		
+    -- Scribing Affix Scripts
+ 	elseif itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT and specializedItemType == SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_TERTIARY then
+         if IsScribingScriptKnown(itemLink) then
+              return PAC.LEARNABLE.KNOWN
+         elseif PA.Libs.CharacterKnowledge.IsInstalled() and PA.Libs.CharacterKnowledge.IsEnabled() then
+              if PA.Libs.CharacterKnowledge.DoesCharacterNeed(itemLink) then
+                  return PAC.LEARNABLE.UNKNOWN
+              else
+                  return PAC.LEARNABLE.OTHERUNKNOWN
+              end
+         else
+             return PAC.LEARNABLE.UNKNOWN
+         end
     elseif itemFilterType == ITEMFILTERTYPE_ARMOR or itemFilterType == ITEMFILTERTYPE_WEAPONS or itemFilterType == ITEMFILTERTYPE_JEWELRY then
-        local itemTraitType = GetItemLinkTraitType(itemLink)
-        -- only check for the research status if it has a traitType and if it is not Ornate or Intricate
-        if itemTraitType == ITEM_TRAIT_TYPE_NONE or
-                itemTraitType == ITEM_TRAIT_TYPE_ARMOR_ORNATE or itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_ORNATE or itemTraitType == ITEM_TRAIT_TYPE_WEAPON_ORNATE or
-                itemTraitType == ITEM_TRAIT_TYPE_ARMOR_INTRICATE or itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_INTRICATE or itemTraitType == ITEM_TRAIT_TYPE_WEAPON_INTRICATE then
-            return nil
-        end
-        if CanItemLinkBeTraitResearched(itemLink) then return PAC.LEARNABLE.UNKNOWN end
-        return PAC.LEARNABLE.KNOWN
+         local itemTraitType = GetItemLinkTraitType(itemLink)
+         -- only check for the research status if it has a traitType and if it is not Ornate or Intricate
+         if itemTraitType == ITEM_TRAIT_TYPE_NONE or
+                 itemTraitType == ITEM_TRAIT_TYPE_ARMOR_ORNATE or itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_ORNATE or itemTraitType == ITEM_TRAIT_TYPE_WEAPON_ORNATE or
+                 itemTraitType == ITEM_TRAIT_TYPE_ARMOR_INTRICATE or itemTraitType == ITEM_TRAIT_TYPE_JEWELRY_INTRICATE or itemTraitType == ITEM_TRAIT_TYPE_WEAPON_INTRICATE then
+             return nil
+         end
+         if CanItemLinkBeTraitResearched(itemLink) then return PAC.LEARNABLE.UNKNOWN end
+         return PAC.LEARNABLE.KNOWN
     elseif specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE or specializedItemType == SPECIALIZED_ITEMTYPE_CONTAINER then
-        local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
-        local collectibleName = GetCollectibleName(containerCollectibleId)
-        if collectibleName ~= nil and collectibleName ~= "" then
-            local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
-            if isValidForPlayer then
-                local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
-                if isUnlocked then return PAC.LEARNABLE.KNOWN end
-                return PAC.LEARNABLE.UNKNOWN
-            end
-        end
+         local containerCollectibleId = GetItemLinkContainerCollectibleId(itemLink)
+         local collectibleName = GetCollectibleName(containerCollectibleId)
+         if collectibleName ~= nil and collectibleName ~= "" then
+             local isValidForPlayer = IsCollectibleValidForPlayer(containerCollectibleId)
+             if isValidForPlayer then
+                 local isUnlocked = IsCollectibleUnlocked(containerCollectibleId)
+                 if isUnlocked then return PAC.LEARNABLE.KNOWN end
+                 return PAC.LEARNABLE.UNKNOWN
+             end
+         end	 
     end
     -- itemLink is neither known, nor unknown (not learnable or researchable)
     return nil
@@ -1038,7 +1039,7 @@ PA.HelperFunctions = {
     isAddonRunning = isAddonRunning,
     isItemLinkCharacterBound = isItemLinkCharacterBound,
     isItemLinkIntricateTraitType = isItemLinkIntricateTraitType,
-    isItemLinkOrnateTraitType = isItemLinkOrnateTraitType,
+    isItemLinkOrnateTraitType = isItemLinkOrnateTraitType,	
     getIconExtendedItemLink = getIconExtendedItemLink,
     getItemLinkLearnableStatus = getItemLinkLearnableStatus
 }

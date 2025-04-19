@@ -87,21 +87,21 @@ local PABankingMenuDefaults = {
                 Unknown = PAC.MOVE.IGNORE,
             },
             [ITEMTYPE_CRAFTED_ABILITY] = { -- SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY
-                Known = PAC.MOVE.IGNORE,
-                Unknown = PAC.MOVE.IGNORE,
-            },
-            [SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_PRIMARY] = {
-                Known = PAC.MOVE.IGNORE,
-                Unknown = PAC.MOVE.IGNORE,
-            },
-            [SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_SECONDARY] = {
-                Known = PAC.MOVE.IGNORE,
-                Unknown = PAC.MOVE.IGNORE,
-            },
-            [SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_TERTIARY] = {
-                Known = PAC.MOVE.IGNORE,
-                Unknown = PAC.MOVE.IGNORE,
-            },
+                 Known = PAC.MOVE.IGNORE,
+                 Unknown = PAC.MOVE.IGNORE,
+             },
+             [SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_PRIMARY] = {
+                 Known = PAC.MOVE.IGNORE,
+                 Unknown = PAC.MOVE.IGNORE,
+             },
+             [SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_SECONDARY] = {
+                 Known = PAC.MOVE.IGNORE,
+                 Unknown = PAC.MOVE.IGNORE,
+             },
+             [SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_TERTIARY] = {
+                 Known = PAC.MOVE.IGNORE,
+                 Unknown = PAC.MOVE.IGNORE,
+             },
         },
 
         MasterWritCraftingTypes = {
@@ -117,7 +117,7 @@ local PABankingMenuDefaults = {
         HolidayWrits = {
             [SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT] = PAC.MOVE.IGNORE,
         },
-
+		
         StylePages = {
             		  [SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE] = {
                        Known = PAC.MOVE.IGNORE,
@@ -255,8 +255,8 @@ local PABankingMenuDefaults = {
             },
 			[204483] = { -- [Cyrodiil Repair Kit]
                 operator = PAC.OPERATOR.NONE,
-                bagAmount = 0,
-			},
+                bagAmount = 0,			
+			}, 
         },
     },
 

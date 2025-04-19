@@ -652,7 +652,7 @@ local PABankingMenuFunctions = {
 
     getAdvancedLearnableItemTypeMoveSetting = getPABankingAdvancedLearnableItemTypeMoveSetting,
     setAdvancedLearnableItemTypeMoveSetting = setPABankingAdvancedLearnableItemTypeMoveSetting,
-
+	
 	getPABankingAdvancedStylePageMoveSetting = getPABankingAdvancedStylePageMoveSetting;
 	setPABankingAdvancedStylePageMoveSetting = setPABankingAdvancedStylePageMoveSetting,
 
@@ -692,7 +692,7 @@ local PABankingMenuFunctions = {
     isIntricateItemsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTraitTypesMoveModeIgnore(PAC.BANKING_ADVANCED.TRAIT.INTRICATE) end,
     isOrnateItemsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTraitTypesMoveModeIgnore(PAC.BANKING_ADVANCED.TRAIT.ORNATE) end,
     isFurnishingItemsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllItemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.REGULAR.FURNISHINGS) end,
-	isScribingItemsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllSpecializedtemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.LEARNABLE.SCRIBING) end,
+    isScribingItemsTransactionMenuDisabled = function() return isAdvancedItemsDisabledOrAllSpecializedtemTypesMoveModeIgnore(PAC.BANKING_ADVANCED.LEARNABLE.SCRIBING) end,
 
     -- ----------------------------------------------------------------------------------
     -- ALLIANCE VERSUS ALLIANCE ITEMS

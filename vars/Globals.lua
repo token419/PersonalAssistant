@@ -33,8 +33,8 @@ PersonalAssistant.Constants = {
 			WORKER = table.concat({"|cFFD700", "P", "|r", "|cFFFFFF", "ersonal", "|r", "|cFFD700", "A", "|r", "|cFFFFFF", "ssistant ", "|r", "|cFFD700", "W", "|r", "|cFFFFFF", "orker", "|r"}),
         },
         AUTHOR = "Klingo, |c3CB371@Masteroshi430|r",
-        VERSION_ADDON = 20250415,
-        VERSION_DISPLAY = "2025.04.15",
+        VERSION_ADDON = 20250418,
+        VERSION_DISPLAY = "2025.04.18-2",
         WEBSITE = "https://www.esoui.com/downloads/info3512-PersonalAssistantBankingJunkLootRepairMasteroshi430sbranch.html",
         FEEDBACK = "https://www.esoui.com/downloads/info3512-PersonalAssistantBankingJunkLootRepairMasteroshi430sbranch.html#comments",
         KEYWORDS = {
@@ -201,7 +201,7 @@ PersonalAssistant.Constants = {
         ITEMS = {
             FOOD = {
                 PATH = "/esoui/art/icons/crafting_bowl_002.dds",
-            },
+            },			
             GENERIC_HELP = {
                 PATH = "/esoui/art/menubar/menubar_help_up.dds",
             },
@@ -501,12 +501,12 @@ PersonalAssistant.Constants = {
             RECIPE = {
                 ITEMTYPE_RECIPE,                            -- 29
             },
-			SCRIBING = {
-                ITEMTYPE_CRAFTED_ABILITY,
-                SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_PRIMARY,
-                SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_SECONDARY,
-                SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_TERTIARY,
-			},
+ 			SCRIBING = {
+                 ITEMTYPE_CRAFTED_ABILITY,
+                 SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_PRIMARY,
+                 SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_SECONDARY,
+                 SPECIALIZED_ITEMTYPE_CRAFTED_ABILITY_SCRIPT_TERTIARY,
+ 			},
         },
         MASTER_WRITS = {
             CRAFTING_TYPE_BLACKSMITHING,                    -- 1
@@ -521,7 +521,7 @@ PersonalAssistant.Constants = {
             SPECIALIZED_ITEMTYPE_HOLIDAY_WRIT,              -- 2760
         },
         STYLE_PAGES = {
-            SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE,
+            SPECIALIZED_ITEMTYPE_COLLECTIBLE_STYLE_PAGE,              
         },
         REGULAR = {
             WRITS = {
@@ -558,9 +558,9 @@ PersonalAssistant.Constants = {
                     SPECIALIZED_ITEMTYPE_TROPHY_UPGRADE_FRAGMENT,   -- 110
                 },
 				TRIBUTE_CLUES = {
-                    SPECIALIZED_ITEMTYPE_TROPHY_TRIBUTE_CLUE,
+                    SPECIALIZED_ITEMTYPE_TROPHY_TRIBUTE_CLUE,  
                 },
-
+				
                 -- SPECIALIZED_ITEMTYPE_TROPHY_SURVEY_REPORT,  -- 101 | handled separately
                 -- SPECIALIZED_ITEMTYPE_TROPHY_KEY    -- 107    TODO: check
             },
@@ -909,68 +909,68 @@ PersonalAssistant.Constants = {
         BACKPACK_LESSTHANOREQUAL = 3,
         BACKPACK_GREATERTHAN = 4,
         BACKPACK_GREATERTHANOREQUAL = 5,
-
+		
         BANK_EQUAL = 6,
         BANK_LESSTHAN = 7,
         BANK_LESSTHANOREQUAL = 8,
         BANK_GREATERTHAN = 9,
         BANK_GREATERTHANOREQUAL = 10,
 
-        BAG_HOUSE_BANK_ONE_EQUAL = 11,
+        BAG_HOUSE_BANK_ONE_EQUAL = 11, 
         BAG_HOUSE_BANK_ONE_LESSTHAN = 12,
         BAG_HOUSE_BANK_ONE_LESSTHANOREQUAL = 13,
         BAG_HOUSE_BANK_ONE_GREATERTHAN = 14,
         BAG_HOUSE_BANK_ONE_GREATERTHANOREQUAL = 15,
 
-        BAG_HOUSE_BANK_TWO_EQUAL = 16,
+        BAG_HOUSE_BANK_TWO_EQUAL = 16, 
         BAG_HOUSE_BANK_TWO_LESSTHAN = 17,
         BAG_HOUSE_BANK_TWO_LESSTHANOREQUAL = 18,
         BAG_HOUSE_BANK_TWO_GREATERTHAN = 19,
         BAG_HOUSE_BANK_TWO_GREATERTHANOREQUAL = 20,
-
-		BAG_HOUSE_BANK_THREE_EQUAL = 21,
+		
+		BAG_HOUSE_BANK_THREE_EQUAL = 21, 
         BAG_HOUSE_BANK_THREE_LESSTHAN = 22,
         BAG_HOUSE_BANK_THREE_LESSTHANOREQUAL = 23,
         BAG_HOUSE_BANK_THREE_GREATERTHAN = 24,
         BAG_HOUSE_BANK_THREE_GREATERTHANOREQUAL = 25,
-
-		BAG_HOUSE_BANK_FOUR_EQUAL = 26,
+		
+		BAG_HOUSE_BANK_FOUR_EQUAL = 26, 
         BAG_HOUSE_BANK_FOUR_LESSTHAN = 27,
         BAG_HOUSE_BANK_FOUR_LESSTHANOREQUAL = 28,
         BAG_HOUSE_BANK_FOUR_GREATERTHAN = 29,
         BAG_HOUSE_BANK_FOUR_GREATERTHANOREQUAL = 30,
-
-		BAG_HOUSE_BANK_FIVE_EQUAL = 31,
+		
+		BAG_HOUSE_BANK_FIVE_EQUAL = 31, 
         BAG_HOUSE_BANK_FIVE_LESSTHAN = 32,
         BAG_HOUSE_BANK_FIVE_LESSTHANOREQUAL = 33,
         BAG_HOUSE_BANK_FIVE_GREATERTHAN = 34,
         BAG_HOUSE_BANK_FIVE_GREATERTHANOREQUAL = 35,
-
-		BAG_HOUSE_BANK_SIX_EQUAL = 36,
+		
+		BAG_HOUSE_BANK_SIX_EQUAL = 36, 
         BAG_HOUSE_BANK_SIX_LESSTHAN = 37,
         BAG_HOUSE_BANK_SIX_LESSTHANOREQUAL = 38,
         BAG_HOUSE_BANK_SIX_GREATERTHAN = 39,
         BAG_HOUSE_BANK_SIX_GREATERTHANOREQUAL = 40,
-
-		BAG_HOUSE_BANK_SEVEN_EQUAL = 41,
+		
+		BAG_HOUSE_BANK_SEVEN_EQUAL = 41, 
         BAG_HOUSE_BANK_SEVEN_LESSTHAN = 42,
         BAG_HOUSE_BANK_SEVEN_LESSTHANOREQUAL = 43,
         BAG_HOUSE_BANK_SEVEN_GREATERTHAN = 44,
         BAG_HOUSE_BANK_SEVEN_GREATERTHANOREQUAL = 45,
-
-		BAG_HOUSE_BANK_EIGHT_EQUAL = 46,
+		
+		BAG_HOUSE_BANK_EIGHT_EQUAL = 46, 
         BAG_HOUSE_BANK_EIGHT_LESSTHAN = 47,
         BAG_HOUSE_BANK_EIGHT_LESSTHANOREQUAL = 48,
         BAG_HOUSE_BANK_EIGHT_GREATERTHAN = 49,
         BAG_HOUSE_BANK_EIGHT_GREATERTHANOREQUAL = 50,
-
-		BAG_HOUSE_BANK_NINE_EQUAL = 51,
+		
+		BAG_HOUSE_BANK_NINE_EQUAL = 51, 
         BAG_HOUSE_BANK_NINE_LESSTHAN = 52,
         BAG_HOUSE_BANK_NINE_LESSTHANOREQUAL = 53,
         BAG_HOUSE_BANK_NINE_GREATERTHAN = 54,
         BAG_HOUSE_BANK_NINE_GREATERTHANOREQUAL = 55,
-
-		BAG_HOUSE_BANK_TEN_EQUAL = 56,
+		
+		BAG_HOUSE_BANK_TEN_EQUAL = 56, 
         BAG_HOUSE_BANK_TEN_LESSTHAN = 57,
         BAG_HOUSE_BANK_TEN_LESSTHANOREQUAL = 58,
         BAG_HOUSE_BANK_TEN_GREATERTHAN = 59,

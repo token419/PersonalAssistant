@@ -11,7 +11,7 @@ local PALMenuFunctions = PA.MenuFunctions.PALoot
 -- =====================================================================================================================
 
 -- Create the LibAddonMenu2 object
-PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
+PA.LAM2 = PA.LAM2 or LibAddonMenu2
 
 local PALootPanelData = {
     type = "panel",

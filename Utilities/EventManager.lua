@@ -207,7 +207,7 @@ local function RefreshPABankingEventRegistration()
         -- Cross-Addon events and hooks
         local PAItemContextMenu = PA.ItemContextMenu
         -- Register Item Context Menu
-        local LCM = LibCustomMenu or LibStub("LibCustomMenu")
+        local LCM = LibCustomMenu
         if LCM then
             zo_callLater(function() PAItemContextMenu.initHooksOnInventoryContextMenu(LCM) end, 100) -- test, was 50
         else
@@ -267,7 +267,7 @@ local function RefreshPAJunkEventRegistration()
         -- Cross-Addon events and hooks
         local PAItemContextMenu = PA.ItemContextMenu
         -- Register Item Context Menu
-        local LCM = LibCustomMenu or LibStub("LibCustomMenu")
+        local LCM = LibCustomMenu
         if LCM then
             zo_callLater(function() PAItemContextMenu.initHooksOnInventoryContextMenu(LCM) end, 50) 
         else

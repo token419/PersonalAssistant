@@ -193,7 +193,7 @@ end
 
 local function _initLibMainMenu()
     -- Create the LibMainMenu object
-    PA.LMM2 = PA.LMM2 or LibMainMenu2 or LibStub("LibMainMenu-2.0")
+    PA.LMM2 = PA.LMM2 or LibMainMenu2
     PA.LMM2:Init()
 
     -- Add to main menu

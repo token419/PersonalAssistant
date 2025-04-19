@@ -6,7 +6,7 @@ local PAGMenuFunctions = PA.MenuFunctions.PAGeneral
 local PAGMenuDefaults = PA.MenuDefaults.PAGeneral
 
 -- Create the LibAddonMenu2 object
-PA.LAM2 = PA.LAM2 or LibAddonMenu2 or LibStub("LibAddonMenu-2.0")
+PA.LAM2 = PA.LAM2 or LibAddonMenu2
 
 local PAGeneralPanelData = {
     type = "panel",

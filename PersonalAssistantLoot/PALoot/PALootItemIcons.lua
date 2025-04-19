@@ -292,8 +292,8 @@ local function _addItemKnownOrUnknownVisuals(parentControl, itemLink, hookType)
         if (itemType == ITEMTYPE_RECIPE and PALootItemIconsSV.Recipes.showUnknownIcon) or
                 (itemType == ITEMTYPE_RACIAL_STYLE_MOTIF and PALootItemIconsSV.Motifs.showUnknownIcon) then
                 _setOtherUnknownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_OTHERUNKNOWN))
-		elseif ((itemType == ITEMTYPE_CRAFTED_ABILITY or itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT) and PALootItemIconsSV.Scribing.showUnknownIcon) then
-		      _setOtherUnknownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_UNKNOWN))
+        elseif ((itemType == ITEMTYPE_CRAFTED_ABILITY or itemType == ITEMTYPE_CRAFTED_ABILITY_SCRIPT) and PALootItemIconsSV.Scribing.showUnknownIcon) then
+ 		      _setOtherUnknownItemIcon(itemIconControl, iconSize, GetString(SI_PA_ITEM_UNKNOWN))		
         end
     end
 end
@@ -512,8 +512,8 @@ local function initHooksOnCraftingStations()
                 _addCompanionItemVisuals(control, itemLink, HOOK_CRAFTSTATION)
             end
         end)
-
-
+		
+		
         ZO_PreHook(ZO_UniversalDeconstructionTopLevel_KeyboardPanelInventoryBackpack.dataTypes[1], "setupCallback", function(...)
             local control = ...
             if control.slotControlType and control.slotControlType == 'listSlot' and control.dataEntry.data.slotIndex then
